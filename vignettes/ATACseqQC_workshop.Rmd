@@ -2,8 +2,8 @@
 title: "ATAC-seq data quality control using the ATACseqQC package"
 author: "Haibo Liu, Jianhong Ou, Lihua Julie Zhu"
 date: "`r Sys.Date()`"
-bibliography: bibliography.enl
-csl: nature.csl
+bibliography: "`r system.file("vignettes", "ATAC-seq.bib", package = "ATACseqQCWorkshop")`"
+csl: "`r system.file("vignettes", "nature.csl", package = "ATACseqQCWorkshop")`"
 vignette: >
   %\VignetteIndexEntry{ATACseqQC_worshop vignette}
   %\VignetteEngine{knitr::rmarkdown}
@@ -42,7 +42,7 @@ In eukaryotes, nucleosomes are basic DNA packaging units, each of which consists
 
 In recent years, a few methods have been developed to profile genome-wide chromatin accessability ![Figure 3](Figure 3. Chromatin accessibility.png) [for review, see @Tsompana2014]. Among these methods, ATAC-seq (an assay for Transposase-Accessible Chromatin using sequencing) is a rapid and sensitive method for profiling chromatin accessibility [@Buenrostro2013]. Compared to other methods, such as MNase-seq, FAIRE-seq and DNAse-seq, ATAC-seq allows comparable or even higher signal-to-noise ratio, but requires much less amount of the biological materials and time to process. Briefly, hyperactive Tn5 transposases preloaded with adapters is first added to simultaneously tag and fragmentate open chromatin in nuclei (500~50,000) isolated from fresh or cryopreserved tissues/cells at nearly native states, a process called tagmentation. The tagged DNA fragments are then amplified and simultaneously sequencing adapters and indeices compatible to Illumina sequencing platforms are added by using PCR with optimized cycles ![Figure 4](Figure 4. library preparation.tif) [@Buenrostro2013].  
 
-Since its first development, ATAC-seq has been used for quite a few purposes [@Buenrostro2013; Buenrostro2015b]:  
+Since its first development, ATAC-seq has been used for quite a few purposes [@Buenrostro2013; @Buenrostro2015b]:  
 * infer nucleosome positioning
 * identify open chromatin regions
 * identify transcription factor (TF) footprints
@@ -57,7 +57,7 @@ Before using the ATACSeqQC package to assess the qualtiy of ATAC-seq data, sever
 * Check quality of raw reads using [FASTQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/).
 * Synthesize a summary interactive HTML report using MultiQC [@Ewels2016].
 * Trimming sequencing adapters using Trimmomatic or [Trim Galore!](http://www.bioinformatics.babraham.ac.uk/projects/trim_galore/).
-* Mapping the reads to the reference genome of choice using Bowtie/Bowtie2 [@Langmead2009; Langmead2012] or BWA-mem [@Li2009a].
+* Mapping the reads to the reference genome of choice using Bowtie/Bowtie2 [@Langmead2009; @Langmead2012] or BWA-mem [@Li2009a].
 * Convert and sort alignment files using samtools [@Li2009b] or sambamba [@Tarasov2015].
 * Filtering aligned reads
     + Remove reads derived from organelles using Samtools [@Li2009b]
@@ -262,44 +262,79 @@ Afew new QC functions have been added to the ATACseqQC package.
 * `vPlot`: Aggregate ATAC-seq Fragment Midpoint vs. Length for a given motif generated over binding sites within the genome.
 
 ## Excercises and live demostration
-ATAC-seq datasets from two different studies were downloaded from the ENA Sequence Read Archive (SRA): SRR891269 and SRR891270 are ATAC-seq data of two biological replicates of 50K cells from EBV-transformed lymphoblastoid cell line, GM12878 (); SRR5800801 and SRR5800802 are ATAC-seq data of 75k cells from a breat cancer cell line T47 (Valles and Izquierd-Bouldstridge, unpublished). After raw read quality QC by using FASTQC, reads wer aligned to the human reference genome hg38 from the UCSC Genome Browser (http://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz) after removing the alternative sequences (chr_alt chromosomes). The resulting BAM files were further preprocessed as above. The sorted BAM files with and without filtering are provided for after-class practice in the directories inst/exdata/unfiltered_BAM and and inst/exdata/filtered_BAM.
-*
-*
-*
-*
-*
-*
-*
-*
+ATAC-seq datasets from two different studies were downloaded from the ENA Sequence Read Archive (SRA): SRR891269 and SRR891270 are ATAC-seq data of two biological replicates of 50K cells from EBV-transformed lymphoblastoid cell line, GM12878 (); SRR5800801 and SRR5800802 are ATAC-seq data of 75k cells from a breat cancer cell line T47 (Valles and Izquierd-Bouldstridge, unpublished). After raw read quality QC by using FASTQC, reads wer aligned to the human reference genome hg38 from the UCSC Genome Browser (http://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz) after removing the alternative sequences (chr_alt chromosomes). The resulting BAM files were further preprocessed as above. The sorted BAM files with and without filtering are provided for after-class practice in the directories inst/exdata/unfiltered_BAM and and inst/exdata/filtered_BAM.  
+
+unfiltered, sorted BAM files:
+* SRR5800801.sorted.bai
+* SRR5800801.sorted.bam
+* SRR5800802.sorted.bai
+* SRR5800802.sorted.bam
+* SRR891269.sorted.bai
+* SRR891269.sorted.bam
+* SRR891270.sorted.bai
+* SRR891270.sorted.bam
+
+filtered, sorted.BAM files:
+* SRR5800801.MT-rmvd.sorted.rmdup.bai
+* SRR5800801.MT-rmvd.sorted.rmdup.bam
+* SRR5800802.MT-rmvd.sorted.rmdup.bai
+* SRR5800802.MT-rmvd.sorted.rmdup.bam
+* SRR891269.MT-rmvd.sorted.rmdup.bai
+* SRR891269.MT-rmvd.sorted.rmdup.bam
+* SRR891270.MT-rmvd.sorted.rmdup.bai
+* SRR891270.MT-rmvd.sorted.rmdup.bam
 
 ### Instruction to in-class exercises
 
-For in-class practice, unfiltered BAM files subsetted for chr1, chr21, and chrM are provided for checking mapping status using the function `bamQC`, located in the directory inst/exdata/unfiltered_subsetted_BAM. For your convenience, filtered BAM files subsetted for chr1 and chr21 are also provided for all other QC analyses.
-*
-*
-*
-*
-*
-*
-*
-*
-Task 1: check read alignment statistics using the function`bamQC` and the unfiltered, subsetted BAM files for SRR891270 and SRR5800802.  
+For in-class practice, unfiltered BAM files subsetted for chr1, chr21, and chrM are provided for checking mapping status using the function `bamQC`, locating in the directory inst/vignettes/exdata/subsetted_unfiltered_BAM. For your convenience, filtered BAM files subsetted for chr1 and chr21 are also provided for all other QC analyses, locating in the directory inst/vignettes/exdata/subsetted_filtered_BAM.
 
-Task 2: plot library insert size distributions using the function `fragSizeDist` and the filtered, subsetted BAM files for SRR891270 and SRR5800802.  
-
-Task 3. plot gloabal signal enrichment around TSSs using the function `enrichedFragments` the filtered, subsetted BAM files for SRR891270 and SRR5800802.
-
-Task 4. visualize signal distribution along genomic regions of genes "C1orf43", and "CHMP2A" using the function `IGVSnapshot`  and the filtered full BAM files for all four samples.
-
-Task 5. plot aggregated CTCF footprints using the functions `factorFootprints`, `footprintsScanner`, and `plotFootprints` and the filtered, subsetted BAM files for SRR891270 and SRR5800802.
-
-Task 6. check sample similarity using the function `plotCorrelation` using filtered, subsetted BAM files for all four samples.
+subsetted, unfiltered BAM files for chr1, chr21 and chrM
+* SRR5800801.chr1.21.MT.sorted.bai
+* SRR5800801.chr1.21.MT.sorted.bam
+* SRR5800802.chr1.21.MT.sorted.bai
+* SRR5800802.chr1.21.MT.sorted.bam
+* SRR891269.chr1.21.MT.sorted.bai
+* SRR891269.chr1.21.MT.sorted.bam
+* SRR891270.chr1.21.MT.sorted.bai
+* SRR891270.chr1.21.MT.sorted.bam
 
 
-Due to time issue we will peform none of QC analyses using the functions `saturationPlot`, `NFRscore`, `PTscore`, `TSSEscore`, and `vPlot`. You may play with those functions after class.  
+subsetted, filtered BAM files for chr1, and chr21
+* SRR5800801.MT-rmvd.sorted.rmdup.chr1.21.bai
+* SRR5800801.MT-rmvd.sorted.rmdup.chr1.21.bam
+* SRR5800802.MT-rmvd.sorted.rmdup.chr1.21.bai
+* SRR5800802.MT-rmvd.sorted.rmdup.chr1.21.bam
+* SRR891269.MT-rmvd.sorted.rmdup.chr1.21.bai
+* SRR891269.MT-rmvd.sorted.rmdup.chr1.21.bam
+* SRR891270.MT-rmvd.sorted.rmdup.chr1.21.bai
+* SRR891270.MT-rmvd.sorted.rmdup.chr1.21.bam
 
 
-For your reference, example R scripts are provided in inst/exdata/XXX.R.  
+Task 1: check read alignment statistics using the function`bamQC` and the subsetted, unfiltered BAM files for SRR891270: inst/vignettes/exdata/subsetted_unfiltered_BAM/SRR891269.chr1.21.MT.sorted.bam
+
+Task 2: plot library insert size distributions using the function `fragSizeDist` and the filtered, subsetted BAM files for SRR891270: inst/vignettes/exdata/subsetted_filtered_BAM/SRR891270.MT-rmvd.sorted.rmdup.chr1.21.bam 
+
+Task 3. plot gloabal signal enrichment around TSSs using the function `enrichedFragments` the filtered, subsetted BAM files for SRR891270: inst/vignettes/exdata/subsetted_filtered_BAM/SRR891270.MT-rmvd.sorted.rmdup.chr1.21.bam.
+
+Task 4. visualize signal distribution along genomic regions of genes "C1orf43", and "CHMP2A" using the function `IGVSnapshot`  and the filtered BAM files for all four samples:
+
+* inst/vignettes/exdata/unfiltered_BAM/SRR5800801.MT-rmvd.sorted.rmdup.bam
+* inst/vignettes/exdata/unfiltered_BAM/SRR5800802.MT-rmvd.sorted.rmdup.bam
+* inst/vignettes/exdata/unfiltered_BAM/SRR891269.MT-rmvd.sorted.rmdup.bam
+* inst/vignettes/exdata/unfiltered_BAM/SRR891270.MT-rmvd.sorted.rmdup.bam
+
+Task 5. plot aggregated CTCF footprints using the functions `factorFootprints`, `footprintsScanner`, and `plotFootprints` and the subsetted, filtered BAM files for SRR891270: inst/vignettes/exdata/subsetted_filtered_BAM/SRR891270.MT-rmvd.sorted.rmdup.chr1.21.bam
+
+
+Task 6. check sample similarity using the function `plotCorrelation` using subsetted, filtered BAM files for all four samples:
+* inst/vignettes/exdata/subsetted_filtered_BAM/SRR5800801.MT-rmvd.sorted.rmdup.chr1.21.bam
+* inst/vignettes/exdata/subsetted_filtered_BAM/SRR5800802.MT-rmvd.sorted.rmdup.chr1.21.bam
+* inst/vignettes/exdata/subsetted_filtered_BAM/SRR891269.MT-rmvd.sorted.rmdup.chr1.21.bam
+* inst/vignettes/exdata/subsetted_filtered_BAM/SRR891270.MT-rmvd.sorted.rmdup.chr1.21.bam
+
+Due to time issue we will peform none of QC analyses using the functions `saturationPlot`, `NFRscore`, `PTscore`, `TSSEscore`, and `vPlot`. You may play with the other data and those functions after class.  
+
+For your reference, example R scripts are provided as inst/vignettes/liver.demo.ATACseqQC.R. 
 
 
 ## Best Practices of ATAC-seq and ATAC-seq data QC
