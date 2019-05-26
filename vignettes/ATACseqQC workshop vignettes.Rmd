@@ -1,0 +1,328 @@
+---
+title: "ATAC-seq data quality control using the ATACseqQC package"
+author: "Haibo Liu, Jianhong Ou, Lihua Julie Zhu"
+date: "`r Sys.Date()`"
+bibliography: bibliography.enl
+csl: nature.csl
+vignette: >
+  %\VignetteIndexEntry{ATACseqQC_worshop vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+output:
+        revealjs::revealjs_presentation:
+        theme: simple
+        transition: slide
+        self_contained: true
+        backgroundTransition: zoom
+        css: ["styles.css", "custom.css"]
+        includes:
+            after_body: doc_suffix.html
+---
+
+```{r opts, include=FALSE, eval = FALSE, warning = FALSE, message = FALSE}
+suppressPackageStartupMessages({
+  library(ATACseqQC)
+  library(ChIPpeakAnno)
+  library(BSgenome.Hsapiens.UCSC.hg38)
+  library(TxDb.Hsapiens.UCSC.hg38.knownGene)
+  library(phastCons100way.UCSC.hg38)
+  library(MotifDb)
+  library(GenomicAlignments)
+})
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+## Instructors and contact information
+* [Haibo Liu](https://github.com/haibol2016) (Department of Animal Science, Iowa State University, Ames, IA, 50010, USA. haibol@iastate.edu)
+* [Jianhong Ou](https://github.com/jianhong) (Department of Cell Biology, Duke University Medical Center, Durham, NC, 27710, USA. Jianhong.ou@duke.edu) 
+* [Lihua Julie Zhu](https://github.com/LihuaJulieZhu) (Department of Molecular Medicine, Program in Bioinformatics and Integrative Biology, Worcester, MA, 01655, USA. Julie.Zhu@umassmed.edu)
+
+
+## Introduction to ATAC-seq technology
+In eukaryotes, nucleosomes are basic DNA packaging units, each of which consists of a nucleosome core particle (NPC), linker DNA and linker histone H1. A NPC is composed of ~147 bp of DNA wrapped around a histone core octamer, spaced from adjacent NPCs by a linker DNA of ~20-90 bp. Linker histones can bind linker DNA (~20 bp) at its entry point to NPC to stabilize nucleosome conformation and higher-order chromatin assembly. Nucleosomes can be hiearchically assembled into higher-order structures, eventually into chromatin or even chromosomes [@Pederson1986; @Bendar2107] ![Figure 1](Figure 1. DNA packaging.tif) [adapted from Nature Education 1(1):26](https://www.nature.com/scitable/topicpage/dna-packaging-nucleosomes-and-chromatin-310). In cells, different genomic regions are packaged with different accessibility to transcriptional machinery. Most notably, promoters and enhancers of actively transcribed genes are devoid of histone interactionin, which are called "open" chromatin regions ![Figure 2](Figure 2. Open and close chromatin.tif) [@Wang2012]. Thus, the interplay between histones and DNA serves as an important layer for controlling gene expression [@Gilbert2005; Perino2016]. Therefore, it is important to determine the chromatin accessibility to better understand gene expression regulation in cells.  
+
+In recent years, a few methods have been developed to profile genome-wide chromatin accessability ![Figure 3](Figure 3. Chromatin accessibility.png) [for review, see @Tsompana2014]. Among these methods, ATAC-seq (an assay for Transposase-Accessible Chromatin using sequencing) is a rapid and sensitive method for profiling chromatin accessibility [@Buenrostro2013]. Compared to other methods, such as MNase-seq, FAIRE-seq and DNAse-seq, ATAC-seq allows comparable or even higher signal-to-noise ratio, but requires much less amount of the biological materials and time to process. Briefly, hyperactive Tn5 transposases preloaded with adapters is first added to simultaneously tag and fragmentate open chromatin in nuclei (500~50,000) isolated from fresh or cryopreserved tissues/cells at nearly native states, a process called tagmentation. The tagged DNA fragments are then amplified and simultaneously sequencing adapters and indeices compatible to Illumina sequencing platforms are added by using PCR with optimized cycles ![Figure 4](Figure 4. library preparation.tif) [@Buenrostro2013].  
+
+Since its first development, ATAC-seq has been used for quite a few purposes [@Buenrostro2013; Buenrostro2015b]:  
+* infer nucleosome positioning
+* identify open chromatin regions
+* identify transcription factor (TF) footprints
+* infer gene transcriptional regulation
+* determine cell state/identity in combination with single cell technologies
+
+Though the ATAC-seq technology is relatively simple and easy, a series of QC steps are warranted to validate high quality ATAC-seq assays ![Figure 5](Figure 5. QC steps in ATAC-seq.tif){width=50% height=400} [@Milani2016]. In this workshop we will mainly cover the post-alignment QC steps using our ATACseqQC package [@Ou2018].
+
+## Preprocessing of ATAC-seq data
+Before using the ATACSeqQC package to assess the qualtiy of ATAC-seq data, several preprocessing steps are needed as follows. These steps are usually performed using open source software other than R, running in UNIX environments. Detailed information about how to preprocess ATAC-seq data is provied in inst/exdata/preprocessing_ATACseq_scripts.txt.  
+
+* Check quality of raw reads using [FASTQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/).
+* Synthesize a summary interactive HTML report using MultiQC [@Ewels2016].
+* Trimming sequencing adapters using Trimmomatic or [Trim Galore!](http://www.bioinformatics.babraham.ac.uk/projects/trim_galore/).
+* Mapping the reads to the reference genome of choice using Bowtie/Bowtie2 [@Langmead2009; Langmead2012] or BWA-mem [@Li2009a].
+* Convert and sort alignment files using samtools [@Li2009b] or sambamba [@Tarasov2015].
+* Filtering aligned reads
+    + Remove reads derived from organelles using Samtools [@Li2009b]
+    + Remove duplicates using picard tools
+    + Remove mapping artifacts (fragments < 38 bp [@Tsompana2014] and fragments > 2 kb, reads with un-coordianted mapping) using custom scripts
+
+## ATACseqQC workflow
+In this workshop we will start with preprocessed alignment files in the BAM formats and use the R/BioConductor package ATACseqQC to perform comprehensive post alignment QC. 
+```{r setup}
+
+## prepare the example BAM file from the ATACseqQC package for importing
+bamFile <- system.file("extdata", "GL1.bam", 
+                        package="ATACseqQC", mustWork=TRUE)
+bamFileLabels <- gsub(".bam", "", basename(bamFile))
+```
+
+### Assessing ATAC-seq read mapping status
+FASTQC can tell some aspects of the quality of raw reads, but it can't tell their mapping status: mapping rate, duplicate rate, genome-wide distribution, mapping quality, contamination, etc. The `bamQC` function can serve these needs. For this QC purpose, sorted and duplicates marked reads in the BAM files are needed. 
+
+```{r bamQC}
+bamQC(bamFile, outPath=NULL)
+```
+
+### Assessing insert size distribution
+It is known in ATAC-seq, tagmentation of Tn5 transposases produce signature size pattern of fragments derived from nucleosome-free regions, mono-nucleosome, di-nucleosome, tri-nucleosome and longer oligo-nucleosome from other open chromatin regions ![Figure 6](Figure 6. Fragments generated by Tn5 tagementation in ATAC-seq.tif) [@Li2019]. A typical distribution of insert size is shown in ![Figure 7](Figure 7. Library insert size distribution.tif)[@Buenrostro2015a]. The pre-filtered BAM files is used to get a unbiased distribution of insert fragment size in the ATAC-seq library. The function `fragSizeDist` in the ATACseqQC package is used for this task.
+
+```{r fragSizeDist}
+fragSize <- fragSizeDist(bamFile, bamFileLabels)
+```
+
+### shifting aligned reads
+Tagmentation of Tn5 transposases produce  5' overhang of 9 base long, the coordinates of reads mapping to the positive and negative strands are shift by + 4 and - 5, respectively [@Nag1985; @Buenrostro2013]. The functions `shiftGAlignmentsList` and `shiftReads` in the ATACseqQC package are used for this purpose.
+
+```{r shiftAlignment}
+## bamfile tags to be read in
+possibleTag <- combn(LETTERS, 2)
+possibleTag <- c(paste0(possibleTag[1, ], possibleTag[2, ]),
+                 paste0(possibleTag[2, ], possibleTag[1, ]))
+bamTop100 <- scanBam(BamFile(bamFile, yieldSize = 100),
+                     param = ScanBamParam(tag=possibleTag))[[1]]$tag
+tags <- names(bamTop100)[lengths(bamTop100)>0]
+tags
+
+## files will be output into outPath
+outPath <- "splited"
+dir.create(outPath)
+
+## shift the coordinates of 5'ends of alignments in the bam file
+
+seqlev <- "chr1" ## subsample data for quick run
+which <- as(seqinfo(Hsapiens)[seqlev], "GRanges")
+gal <- readBamFile(bamFile, tag=tags, which=which, asMates=TRUE, bigFile=TRUE)
+shiftedBamFile <- file.path(outPath, "shifted.bam")
+gal1 <- shiftGAlignmentsList(gal, outbam=shiftedBamFile)
+
+```
+
+### splitting BAM files
+The shifted reads will be split into different bins, namely bins for nucleosome-free regions, and regions occupied by mononucleosome, dinucleosomes, and trinucleosomes. Shifted reads that do not fit into any of the three bins will be discarded. The function `splitGAlignmentsByCut` is implemented to meet this demand.
+
+```{r splitBAM}
+## run program for chromosome 1 only
+txs <- txs[seqnames(txs) %in% "chr1"]
+genome <- Hsapiens
+## split the reads into NucleosomeFree, mononucleosome, 
+## dinucleosome and trinucleosome.
+## and save the binned alignments into bam files.
+objs <- splitGAlignmentsByCut(gal1, txs=txs, genome=genome, outPath = outPath)
+## list the files generated by splitGAlignmentsByCut.
+dir(outPath)
+```
+You can also perform shifting and splitting in one step by calling `splitBam`.
+
+```{r altSplitBAM, eval=FALSE}
+objs <- splitBam(bamFile, tags=tags, outPath=outPath,
+                 txs=txs, genome=genome,
+                 conservation=phastCons100way.UCSC.hg19)
+```
+
+### Plotting global signal distribution around transcriptional sites (TSSs)
+Previous studies have shown that transcriptionally active elements, such as promoters and enhancers, are defined by short regions of DNA that are devoid of direct histone interactions. These regions of "open" chromatin are usually occupied by transcription factors that facilitate gene transcription. By contrast, the promoters of genes that are not actively expressed in a given cell type exhibit much tighter association with histones, which prevents transcription factors from activating transcription and contributes to gene repression. Typical nucleosome density around TSSs and of actively transcribed genes is shown in ![Figure 10](). The function `enrichedFragments` is used to calculate signals around TSSs using the split BAM objects. And the function `featureAlignedHeatmap` is used to generate a heatmap showing signal distribution around TSSs. The function `matplot` summarizes the signal distribution around TSSs using a density plot.
+
+```{r heatmap, fig.height=4, fig.width=4}
+
+bamFiles <- file.path(outPath,
+                     c("NucleosomeFree.bam",
+                     "mononucleosome.bam",
+                     "dinucleosome.bam",
+                     "trinucleosome.bam"))
+## Plot the cumulative percentage of tag allocation in nucleosome-free 
+## and mononucleosome bam files.
+cumulativePercentage(bamFiles[1:2], as(seqinfo(Hsapiens)["chr1"], "GRanges"))
+```
+```{r fig.height=8, fig.width=4}
+TSS <- promoters(txs, upstream=0, downstream=1)
+TSS <- unique(TSS)
+## estimate the library size for normalization
+(librarySize <- estLibSize(bamFiles))
+## calculate the signals around TSSs.
+NTILE <- 101
+dws <- ups <- 1010
+sigs <- enrichedFragments(gal=objs[c("NucleosomeFree", 
+                                     "mononucleosome",
+                                     "dinucleosome",
+                                     "trinucleosome")], 
+                          TSS=TSS,
+                          librarySize=librarySize,
+                          seqlev=seqlev,
+                          TSS.filter=0.5,
+                          n.tile = NTILE,
+                          upstream = ups,
+                          downstream = dws)
+## log2 transformed signals
+sigs.log2 <- lapply(sigs, function(.ele) log2(.ele+1))
+#plot heatmap
+featureAlignedHeatmap(sigs.log2, reCenterPeaks(TSS, width=ups+dws),
+                      zeroAt=.5, n.tile=NTILE)
+```
+```{r fig.show="hide"}
+## get signals normalized for nucleosome-free and nucleosome-bound regions.
+out <- featureAlignedDistribution(sigs, 
+                                  reCenterPeaks(TSS, width=ups+dws),
+                                  zeroAt=.5, n.tile=NTILE, type="l", 
+                                  ylab="Averaged coverage")
+```
+```{r}
+## rescale the nucleosome-free and nucleosome signals to 0~1
+range01 <- function(x){(x-min(x))/(max(x)-min(x))}
+out <- apply(out, 2, range01)
+matplot(out, type="l", xaxt="n", 
+        xlab="Position (bp)", 
+        ylab="Fraction of signal")
+axis(1, at=seq(0, 100, by=10)+1, 
+     labels=c("-1K", seq(-800, 800, by=200), "1K"), las=2)
+abline(v=seq(0, 100, by=10)+1, lty=2, col="gray")
+```
+
+### streamlining IGV snapshots showing sinal distribution along housekeeping genes
+Housekeeping genes are XXX. Signal enrichment is expected in some regulatory regions of housekeeping genes in successful ATAC-seq experiments, which provides valuable insights into the quality of the ATAC-seq library. The fucntion `IGVSnapshot` is to facitate automatic visualization of signal distribution along any genomic region of interest.
+
+```{r IGVSnapshot, eval=FALSE}
+source(system.file("extdata", "IGVSnapshot.R", package = "ATACseqQC"))
+```
+
+### Assessing footprints of DNA-binding factors
+Genomic regions bound by transcription factors/insulators are locally protected from Tn5 transposase tagmentation and the pattern of Tn5 transposase cutting sites around TF-binding sites can be used to infer the footprints of TFs. The function `factorFootprints` is used to plot footprints of DNA-binding factors.
+
+```{r}
+## foot prints
+library(MotifDb)
+CTCF <- query(MotifDb, c("CTCF"))
+CTCF <- as.list(CTCF)
+print(CTCF[[1]], digits=2)
+sigs <- factorFootprints(shiftedBamFile, pfm=CTCF[[1]], 
+                         genome=genome,
+                         min.score="90%", seqlev=seqlev,
+                         upstream=100, downstream=100)
+```
+```{r fig.height=6, fig.width=6}
+featureAlignedHeatmap(sigs$signal, 
+                      feature.gr=reCenterPeaks(sigs$bindingSites,
+                                               width=200+width(sigs$bindingSites[1])), 
+                      annoMcols="score",
+                      sortBy="score",
+                      n.tile=ncol(sigs$signal[[1]]))
+sigs$spearman.correlation
+sigs$Profile.segmentation
+```
+
+
+### Assessing sequencing depth and library complexity
+All the above assessment can tell the quality of the available ATAC-seq data, they can't tell whether the squencing depth is saturated or not, nor whether the library is valuable for furhter sequencing. The functions `saturationPlot` and `estimateLibComplexity`.
+
+```{r libComplexity}
+
+estimateLibComplexity(readsDupFreq(bamFile))
+```
+
+### Assessing similarity of replicates
+If multiple ATAC-seq assays have been performed, the function `plotCorrelation` can be adopted to check signal correlation among replicates.
+
+```{r}
+path <- system.file("extdata", package="ATACseqQC", mustWork=TRUE)
+bamFiles <- dir(path, "*.bam$", full.name=TRUE)
+gals <- lapply(bamFiles, function(bamfile){
+               readBamFile(bamFile=bamfile, tag=character(0), 
+                          which=GRanges("chr1", IRanges(1, 1e6)), 
+                          asMates=FALSE)
+         })
+library(TxDb.Hsapiens.UCSC.hg19.knownGene)
+txs <- transcripts(TxDb.Hsapiens.UCSC.hg19.knownGene)
+library(GenomicAlignments)
+plotCorrelation(GAlignmentsList(gals), txs, seqlev="chr1")
+```
+### Assessing Other QC metrics
+Afew new QC functions have been added to the ATACseqQC package.
+
+* `distanceDyad`: Calculate the distance of potential nucleosome dyad and the linear model for V??.
+* `NFRscore`: calculate the raio of cutting signal immediately adjacent to TSSs and that located to the regions flanking TSSs.
+* `PTscore`: Calculate the ratio of read coverage over promoters to read coverage over transcript body.
+* `TSSEscore`: Calculate aggregated distribution of reads centered on TSSs and thatof reads flanking the corresponding TSSs.
+* `vPlot`: Aggregate ATAC-seq Fragment Midpoint vs. Length for a given motif generated over binding sites within the genome.
+
+## Excercises and live demostration
+ATAC-seq datasets from two different studies were downloaded from the ENA Sequence Read Archive (SRA): SRR891269 and SRR891270 are ATAC-seq data of two biological replicates of 50K cells from EBV-transformed lymphoblastoid cell line, GM12878 (); SRR5800801 and SRR5800802 are ATAC-seq data of 75k cells from a breat cancer cell line T47 (Valles and Izquierd-Bouldstridge, unpublished). After raw read quality QC by using FASTQC, reads wer aligned to the human reference genome hg38 from the UCSC Genome Browser (http://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz) after removing the alternative sequences (chr_alt chromosomes). The resulting BAM files were further preprocessed as above. The sorted BAM files with and without filtering are provided for after-class practice in the directories inst/exdata/unfiltered_BAM and and inst/exdata/filtered_BAM.
+*
+*
+*
+*
+*
+*
+*
+*
+
+### Instruction to in-class exercises
+
+For in-class practice, unfiltered BAM files subsetted for chr1, chr21, and chrM are provided for checking mapping status using the function `bamQC`, located in the directory inst/exdata/unfiltered_subsetted_BAM. For your convenience, filtered BAM files subsetted for chr1 and chr21 are also provided for all other QC analyses.
+*
+*
+*
+*
+*
+*
+*
+*
+Task 1: check read alignment statistics using the function`bamQC` and the unfiltered, subsetted BAM files for SRR891270 and SRR5800802.  
+
+Task 2: plot library insert size distributions using the function `fragSizeDist` and the filtered, subsetted BAM files for SRR891270 and SRR5800802.  
+
+Task 3. plot gloabal signal enrichment around TSSs using the function `enrichedFragments` the filtered, subsetted BAM files for SRR891270 and SRR5800802.
+
+Task 4. visualize signal distribution along genomic regions of genes "C1orf43", and "CHMP2A" using the function `IGVSnapshot`  and the filtered full BAM files for all four samples.
+
+Task 5. plot aggregated CTCF footprints using the functions `factorFootprints`, `footprintsScanner`, and `plotFootprints` and the filtered, subsetted BAM files for SRR891270 and SRR5800802.
+
+Task 6. check sample similarity using the function `plotCorrelation` using filtered, subsetted BAM files for all four samples.
+
+
+Due to time issue we will peform none of QC analyses using the functions `saturationPlot`, `NFRscore`, `PTscore`, `TSSEscore`, and `vPlot`. You may play with those functions after class.  
+
+
+For your reference, example R scripts are provided in inst/exdata/XXX.R.  
+
+
+## Best Practices of ATAC-seq and ATAC-seq data QC
+A few best practices for ATAC-seq assays are suggested here:  
+* Digest away background DNA (medium/dead cells) using DNase [@Corces2017]
+* Use fresh/cyropreserved cells/tissues to isolate nuclei [@Buenrostro2013; Milani2016]
+* Reduce mitochondrial/chloroplast DNA contamination as much as possible
+* Optimize the ratio of the amount of Tn5 enzyme to the number of nuclei
+* Optimize the number of PCR cycles [@Buenrostro2015a]
+* Perform Paired-end (PE) sequencing, 2 x 50bp
+* Obtain > 50M PE reads (~200 M for footprint discovery) [@Buenrostro2013]
+
+A few best practices for ATAC-seq data analysis are suggested here:
+* raw read QC before alignment by [FASTQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) 
+* post-alignment QC using ATACSeqQC [@Ou2018]
+* peak calling using [MACS2](https://github.com/taoliu/MACS) [@Zhang2008] 
+* post-peak calling QC
+    + peak distribution among genomic features using ChIPpeakAnno [@Zhu2010] or ChIPSeeker [@Yu2015]
+    + functions of genes associated to peaks using the Genomic Regions Enrichment of Annotations Tool (GREAT) [@McLean2017]
+
+## Session Info
+```{r sessionInfo}
+sessionInfo()
+```
+
+## References

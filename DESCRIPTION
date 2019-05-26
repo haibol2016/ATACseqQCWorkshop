@@ -1,0 +1,37 @@
+Package: ATACseqQCWorkshop
+Type: Package
+Title: ATAC-seq data quality control using the ATACseqQC package
+Version: 0.1.0
+Author: Haibo Liu, Jianhong Ou, Lihua Julie Zhu
+Maintainer: Haibo Liu <haibol@iastate.edu>
+Description: ATAC-seq, an assay for Transposase-Accessible Chromatin
+        using sequencing, is a rapid and sensitive method for chromatin
+        accessibility analysis. Compared to other methods, such as 
+        MNase-seq, FAIRE-seq and DNAse-seq, ATAC-seq requires less 
+        amount of the biological samples and time to process. In this
+        workshop, participants will not only gain the theoretical
+        understanding of the characteristics of ATAC-seq data and
+        the workflow of ATAC-seq data quality assessment, but will
+        also obtain hands-on experience in analyzing ATAC-seq data
+        using the ATACseqQC package.
+        We will provide a brief introduction to the ATAC-seq technology,
+        high quality data generation and computational analysis workflow. 
+        Then, we will give a demo to perform a comprehensive quality assessment
+        of a typical ATAC-seq dataset using the ATACseqQC package.
+        Participants will have the opportunity to analyze several excerpted
+        datasets of different quality. Detailed notes and R code will be
+        provided for reproducibility and follow-up practicing.
+Depends: R (>= 3.4), BiocGenerics, S4Vectors
+Imports: BSgenome, Biostrings, ChIPpeakAnno, IRanges, GenomicRanges,
+        GenomicAlignments, GenomeInfoDb, GenomicScores, graphics, grid,
+        limma, Rsamtools (>= 1.31.2), randomForest, rtracklayer, stats,
+        motifStack, preseqR, utils, KernSmooth, edgeR, BiocStyle, knitr,
+        BSgenome.Hsapiens.UCSC.hg38, TxDb.Hsapiens.UCSC.hg38.knownGene,
+        phastCons100way.UCSC.hg38, MotifDb, trackViewer, SRAdb
+License: GPL (>= 2)
+LazyData: TRUE
+VignetteBuilder: knitr
+RoxygenNote: 6.1.1
+biocViews: Sequencing, DNASeq, ATACSeq, GeneRegulation, QualityControl,
+        Coverage, NucleosomePositioning, ImmunoOncology
+Encoding: UTF-8
