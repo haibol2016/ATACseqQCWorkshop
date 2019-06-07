@@ -273,7 +273,7 @@ Task 3. plot gloabal signal enrichment around TSSs using the function `enrichedF
 
 Task 4. plot aggregated CTCF footprints using the functions `factorFootprints`, `footprintsScanner`, and `plotFootprints`
 
-Task 5. visualize signal distribution along genomic regions of genes "GPI", C1orf43", and "CHMP2A" using the function `IGVSnapshot` and the 4 subsetted, filtered BAM files.
+Task 5. visualize signal distribution along genomic regions of genes "SPTL3", "CRLS1", and "NEFLCD", using the function `IGVSnapshot` and the 4 subsetted, filtered BAM files.
 
 Download data to a location without white spaces in the full path from the folder **subsetted_filtered_BAM** in my Google Drive, by following the shared link: https://drive.google.com/drive/folders/1zGvqnXAIWelgVk9Gw1Kx5ySlCg0iz7AJ?usp=sharing
 
