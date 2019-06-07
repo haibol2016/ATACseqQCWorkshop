@@ -1,0 +1,149 @@
+
+######################## Scripts used to prepare datasets for BioC ATACseqQC workshop ########################
+
+1. download two typical datasets of ATAC-seq from the ENA SRA database
+
+mkdir -p SRR891269; ascp -QT -l 300m -P33001 -i /shared/hpc/aspera/cli/3.7.7/etc/asperaweb_id_dsa.openssh  era-fasp@fasp.sra.ebi.ac.uk:/vol1/fastq/SRR891/SRR891269/SRR891269_1.fastq.gz  SRR891269
+mkdir -p SRR891269; ascp -QT -l 300m -P33001 -i /shared/hpc/aspera/cli/3.7.7/etc/asperaweb_id_dsa.openssh  era-fasp@fasp.sra.ebi.ac.uk:/vol1/fastq/SRR891/SRR891269/SRR891269_2.fastq.gz  SRR891269
+mkdir -p SRR891270; ascp -QT -l 300m -P33001 -i /shared/hpc/aspera/cli/3.7.7/etc/asperaweb_id_dsa.openssh  era-fasp@fasp.sra.ebi.ac.uk:/vol1/fastq/SRR891/SRR891270/SRR891270_1.fastq.gz  SRR891270
+mkdir -p SRR891270; ascp -QT -l 300m -P33001 -i /shared/hpc/aspera/cli/3.7.7/etc/asperaweb_id_dsa.openssh  era-fasp@fasp.sra.ebi.ac.uk:/vol1/fastq/SRR891/SRR891270/SRR891270_2.fastq.gz  SRR891270
+
+mkdir -p SRR5800802; ascp -QT -l 300m -P33001 -i /shared/hpc/aspera/cli/3.7.7/etc/asperaweb_id_dsa.openssh era-fasp@fasp.sra.ebi.ac.uk:/vol1/fastq/SRR580/002/SRR5800802/SRR5800802_1.fastq.gz SRR5800802
+mkdir -p SRR5800802; ascp -QT -l 300m -P33001 -i /shared/hpc/aspera/cli/3.7.7/etc/asperaweb_id_dsa.openssh era-fasp@fasp.sra.ebi.ac.uk:/vol1/fastq/SRR580/002/SRR5800802/SRR5800802_2.fastq.gz SRR5800802 
+mkdir -p SRR5800801; ascp -QT -l 300m -P33001 -i /shared/hpc/aspera/cli/3.7.7/etc/asperaweb_id_dsa.openssh era-fasp@fasp.sra.ebi.ac.uk:/vol1/fastq/SRR580/001/SRR5800801/SRR5800801_1.fastq.gz SRR5800801 
+mkdir -p SRR5800801; ascp -QT -l 300m -P33001 -i /shared/hpc/aspera/cli/3.7.7/etc/asperaweb_id_dsa.openssh era-fasp@fasp.sra.ebi.ac.uk:/vol1/fastq/SRR580/001/SRR5800801/SRR5800801_2.fastq.gz SRR5800801 
+
+
+2. download human reference genome gh38 from UCSC
+
+wget http://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz
+
+## filter out alternative contigs
+
+module load seqtk
+
+grep '>'  hg38.fa | perl -n -e 's/^>//; print if !/alt$/' | seqtk subseq hg38.fa - > alt.contig.filtered.hg38.fa
+
+3. building genome index for bwa-mem mapping
+
+module load bwa/0.7.17-zhcbtza
+fasta=./alt.contig.filtered.hg38.fa
+bwa index  $fasta
+
+4. mapping the reads to the reference genome using bwa-mem
+
+#!/bin/bash
+
+# Copy/paste this job script into a text file and submit with the command:
+#    sbatch thefilename
+
+#SBATCH --time=6:00:00   # walltime limit (HH:MM:SS)
+#SBATCH --nodes=1   # number of nodes
+#SBATCH --ntasks-per-node=8   # 36 processor core(s) per node 
+#SBATCH --mem=64G   # maximum memory per node
+#SBATCH --job-name="featureCounts"
+#SBATCH --array=1-4
+#SBATCH --output="logs/out.addRG.%A_%a.txt" # job standard output file (%j replaced by job id)
+#SBATCH --error="logs/err.addRG.%A_%a.txt" # job standard error file (%j replaced by job id)
+
+# LOAD MODULES, INSERT CODE, AND RUN YOUR PROGRAMS HERE
+
+
+i=$(($SLURM_ARRAY_TASK_ID - 1))
+
+module load bwa/0.7.17-zhcbtza
+module load samtools/1.9-k6deoga
+
+in=data
+R1=(`ls $in/*/*_1.fastq.gz`)
+R2=(`ls $in/*/*_2.fastq.gz`)
+
+
+names=(`ls $in/*/*_1.fastq.gz | perl -p -e 's{.+/(.+?)_1.fastq.gz}{$1}g'`)
+
+out=results/bwa.out.0524
+mkdir -p ${out}
+
+fasta=/home/haibol/haibol_work/haibo_genome/Homo_sapiens/alt.contig.filtered.hg38.fa
+
+time bwa mem -M -t 8  $fasta  ${R1[$i]} ${R2[$i]} | \
+         samtools view -bu -h  -@ 8 - | samtools sort  -l 5 -m 8G -o $out/${names[$i]}.sort.bam  -O BAM -@ 8  - 
+       
+
+5. filtering alignments using samtools
+
+#!/bin/bash
+
+# Copy/paste this job script into a text file and submit with the command:
+#    sbatch thefilename
+
+#SBATCH --time=6:00:00   # walltime limit (HH:MM:SS)
+#SBATCH --nodes=1   # number of nodes
+#SBATCH --ntasks-per-node=8   # 36 processor core(s) per node 
+#SBATCH --mem=64G   # maximum memory per node
+#SBATCH --job-name="featureCounts"
+#SBATCH --array=2-4
+#SBATCH --output="logs/out.addRG.%A_%a.txt" # job standard output file (%j replaced by job id)
+#SBATCH --error="logs/err.addRG.%A_%a.txt" # job standard error file (%j replaced by job id)
+#SBATCH --dependency=afterok:309105
+# LOAD MODULES, INSERT CODE, AND RUN YOUR PROGRAMS HERE
+
+
+i=$(($SLURM_ARRAY_TASK_ID - 1))
+
+module load samtools/1.9-k6deoga
+
+## Get a list of all human nuclear chromosomes and unplaced scaffolds (the mitochondrial genome "chrM" is excluded)
+
+chromosomes=(`samtools view -h results/bwa.out.0524/SRR891270.sort.bam | grep '^@SQ' - | cut -f2 | perl -n -e 's/SN://; print if !/chrM/'`)
+bams=(`ls results/bwa.out.0524/*.bam`)
+names=(`ls results/bwa.out.0524/*.bam | perl -p -e 's{.+/(.+?).sort.bam}{$1}'`)
+samtools index ${bams[$i]} results/bwa.out.0524/${names[$i]}.sort.bai
+
+out=results/samtools.out
+mkdir -p $out
+
+## subsetting chr 1, 21 and  mitochondrial reads for demo purpose
+subset_chrs=(chr1 chr21 chrM)
+samtools view  -h -bu   ${bams[${i}]}   ${subset_chrs[@]} | \
+              samtools sort  -l 9 -m 8G -o $out/${names[$i]}.chr1.21.MT.sorted.bam -O BAM -@ 8 -
+samtools index $out/${names[$i]}.chr1.21.MT.sorted.bam  $out/${names[$i]}.chr1.21.MT.sorted.bai
+
+
+## filtering BAM files to remove mitochondrial reads and other alignments of no interest
+
+samtools view  -h -O SAM  ${bams[${i}]}   ${chromosomes[@]} | awk  'BEGIN{FS=OFS="\t"} \
+    function abs(v) {return v < 0 ? -v : v}; /^@/ || ($7 == "="  \
+    && ($2 == 81 || $2 == 161|| $2 == 97 || $2 == 145 || $2 ==99 || \
+    $2 == 147 || $2 == 83 || $2 ==163) && abs($9) <= 2000 && abs($9) >= 38 && $5 >= 20 ) {print}' | \
+    samtools view  -bu -h  -@ 8 -  | \
+    samtools sort  -l 5 -m 8G -o $out/${names[$i]}.MT.rmvd.sorted.bam  -O BAM -@ 8  -
+
+## Indexing the BAM file
+samtools index $out/${names[$i]}.MT.rmvd.sorted.bam  $out/${names[$i]}.MT.rmvd.sorted.bai
+
+## removing duplicates from the filtered BAM file using picard tools
+module load jdk/8u172-b11-rnauqmr
+PICARD=/home/haibol/bin/picar_2.18.16/picard.jar
+
+## NextSeq uses unpatterned flow cells: OPTICAL_DUPLICATE_PIXEL_DISTANCE=100
+## patterned flow cells OPTICAL_DUPLICATE_PIXEL_DISTANCE=2500
+
+java -jar -Xmx16G -Djava.io.tmpdir=$TMPDIR  $PICARD MarkDuplicates \
+      I=$out/${names[$i]}.MT.rmvd.sorted.bam  \
+      O=$out/${names[${i}]}.MT-rmvd.sorted.rmdup.bam \
+      MAX_RECORDS_IN_RAM=null \
+      MAX_FILE_HANDLES_FOR_READ_ENDS_MAP=1000 \
+      ASSUME_SORT_ORDER=coordinate  \
+      REMOVE_DUPLICATES=true \
+      OPTICAL_DUPLICATE_PIXEL_DISTANCE=2500 \
+      CREATE_INDEX=true \
+      M=${out}/${names[$i]}.markdup_metrics.txt
+
+## Subsetting chr1 and 21 after filtering for demo purpose
+
+subset_chrs_2=(chr1 chr21)      
+samtools view  -h  $out/${names[${i}]}.MT-rmvd.sorted.rmdup.bam  ${subset_chrs_2[@]} | \
+               samtools sort  -l 9 -m 8G -o $out/${names[${i}]}.MT-rmvd.sorted.rmdup.chr1.21.bam -O BAM -@ 8 -
+
+samtools index $out/${names[${i}]}.MT-rmvd.sorted.rmdup.chr1.21.bam  $out/${names[${i}]}.MT-rmvd.sorted.rmdup.chr1.21.bai
