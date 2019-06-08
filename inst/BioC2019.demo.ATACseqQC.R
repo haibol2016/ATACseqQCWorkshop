@@ -1,5 +1,5 @@
-library("devtools")
-devtools::load_all("C:/Users/Haibo/ATACseqQCWorkshop")
+## library("devtools")
+## devtools::load_all("C:/Users/Haibo/ATACseqQCWorkshop")
 
 suppressPackageStartupMessages({
     library(ATACseqQC)
