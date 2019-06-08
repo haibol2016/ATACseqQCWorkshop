@@ -1,9 +1,8 @@
-## library("devtools")
-## devtools::load_all("C:/Users/Haibo/ATACseqQCWorkshop")
+#library("devtools")
+#devtools::install("C:/Users/Haibo/ATACseqQCWorkshop", build_vignettes = TRUE)
 
 suppressPackageStartupMessages({
     library(ATACseqQC)
-    #library(ATACseqQCWorkshop)
     library(ChIPpeakAnno)
     library(BSgenome.Hsapiens.UCSC.hg38)
     library(TxDb.Hsapiens.UCSC.hg38.knownGene)
