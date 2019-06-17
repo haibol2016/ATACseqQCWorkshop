@@ -60,7 +60,7 @@ knitr::include_graphics(system.file('vignettes', 'Figure 3. Chromatin accessibil
 <br/>
 
 ```{r, out.width='80%', fig.align='center', fig.cap='Figure 4. Schematic showing of ATAC-seq library preparation.', echo = FALSE}
-knitr::include_graphics(system.file('vignettes', 'Figure 4. Library preparation.png', package = 'ATACseqQCWorkshop'))
+knitr::include_graphics(system.file('vignettes', 'Figure 4. library preparation.png', package = 'ATACseqQCWorkshop'))
 ```
 <br/>
 Since its first development, ATAC-seq has been used for quite a few purposes [@Buenrostro2013; @Buenrostro2015b]:  
