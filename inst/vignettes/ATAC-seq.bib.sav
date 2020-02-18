@@ -86,18 +86,6 @@
   url           = {http://www.sciencedirect.com/science/article/pii/0378111985902902},
 }
 
-@article{Milani2016,
-  author        = {Milani, Pamela and Escalante-Chong, Renan and Shelley, Brandon C. and Patel-Murray, Natasha L. and Xin, Xiaofeng and Adam, Miriam and Mandefro, Berhan and Sareen, Dhruv and Svendsen, Clive N. and Fraenkel, Ernest},
-  title         = {Cell freezing protocol suitable for ATAC-Seq on motor neurons derived from human induced pluripotent stem cells},
-  journal       = {Scientific Reports},
-  year          = {2016},
-  volume        = {6},
-  pages         = {25474},
-  doi           = {10.1038/srep25474
-https://www.nature.com/articles/srep25474#supplementary-information},
-  url           = {https://doi.org/10.1038/srep25474},
-}
-
 @article{McLean2010,
   author        = {McLean, Cory Y. and Bristor, Dave and Hiller, Michael and Clarke, Shoa L. and Schaar, Bruce T. and Lowe, Craig B. and Wenger, Aaron M. and Bejerano, Gill},
   title         = {GREAT improves functional interpretation of cis-regulatory regions},
@@ -170,17 +158,6 @@ https://www.nature.com/articles/srep25474#supplementary-information},
   url           = {https://www.ncbi.nlm.nih.gov/pubmed/22388286},
 }
 
-@article{Gilbert2005,
-  author        = {Gilbert, N. and Ramsahoye, B.},
-  title         = {The relationship between chromatin structure and transcriptional activity in mammalian genomes},
-  journal       = {Brief Funct Genomic Proteomic},
-  year          = {2005},
-  volume        = {4},
-  number        = {2},
-  pages         = {129--142},
-  doi           = {10.1093/bfgp/4.2.129},
-}
-
 @Article{Ewels2016,
   author  = {Ewels, Philip and Magnusson, Måns and Lundin, Sverker and Käller, Max},
   title   = {MultiQC: summarize analysis results for multiple tools and samples in a single report},
@@ -191,18 +168,6 @@ https://www.nature.com/articles/srep25474#supplementary-information},
   pages   = {3047–-3048},
   doi     = {10.1093/bioinformatics/btw354},
   url     = {https://doi.org/10.1093/bioinformatics/btw354},
-}
-
-@article{Buenrostro2015b,
-  author  = {Buenrostro, Jason D. and Wu, Beijing and Litzenburger, Ulrike M. and Ruff, Dave and Gonzales, Michael L. and Snyder, Michael P. and Chang, Howard Y. and Greenleaf, William J.},
-  title   = {Single-cell chromatin accessibility reveals principles of regulatory variation},
-  journal = {Nature},
-  year    = {2015},
-  volume  = {523},
-  pages   = {486--490},
-  month   = jul,
-  doi     = {10.1038/nature14590},
-  url     = {https://doi.org/10.1038/nature14590},
 }
 
 @article{Buenrostro2015a,
@@ -216,19 +181,6 @@ https://www.nature.com/articles/srep25474#supplementary-information},
   url     = {https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4374986/},
 }
 
-@article{Buenrostro2013,
-  author  = {Buenrostro, Jason D. and Giresi, Paul G. and Zaba, Lisa C. and Chang, Howard Y. and Greenleaf, William J.},
-  title   = {Transposition of native chromatin for fast and sensitive epigenomic profiling of open chromatin, {DNA}-binding proteins and nucleosome position},
-  journal = {Nature Methods},
-  year    = {2013},
-  volume  = {10},
-  number  = {12},
-  pages   = {1213--1218},
-  month   = dec,
-  doi     = {10.1038/nmeth.2688},
-  url     = {https://doi.org/10.1038/nmeth.2688},
-}
-
 @article{Bolger2014,
   author        = {Bolger, Anthony M. and Lohse, Marc and Usadel, Bjoern},
   title         = {Trimmomatic: a flexible trimmer for {Illumina} sequence data},
@@ -239,19 +191,6 @@ https://www.nature.com/articles/srep25474#supplementary-information},
   pages         = {2114--2120},
   doi           = {10.1093/bioinformatics/btu170},
   url           = {https://www.ncbi.nlm.nih.gov/pubmed/24695404},
-}
-
-@article{Bednar2017,
-  author  = {Bednar, Jan and Garcia-Saez, Isabel and Boopathi, Ramachandran and Cutter, Amber R. and Papai, Gabor and Reymer, Anna and Syed, Sajad H. and Lone, Imtiaz Nisar and Tonchev, Ognyan and Crucifix, Corinne and Menoni, Hervé and Papin, Christophe and Skoufias, Dimitrios A. and Kurumizaka, Hitoshi and Lavery, Richard and Hamiche, Ali and Hayes, Jeffrey J. and Schultz, Patrick and Angelov, Dimitar and Petosa, Carlo and Dimitrov, Stefan},
-  title   = {Structure and dynamics of a 197 bp nucleosome in complex with linker histone {H1}},
-  journal = {Molecular Cell},
-  year    = {2017},
-  volume  = {66},
-  number  = {3},
-  pages   = {384--397.e8},
-  month   = may,
-  doi     = {10.1016/j.molcel.2017.04.012},
-  url     = {https://doi.org/10.1016/j.molcel.2017.04.012},
 }
 
 @Article{Baldi2018,
@@ -373,17 +312,6 @@ https://www.nature.com/articles/srep25474#supplementary-information},
   number    = {12},
   pages     = {1554--1555},
   publisher = {Oxford Univ Press},
-}
-
-@Article{buenrostro2013transposition,
-  author    = {Buenrostro, Jason D and Giresi, Paul G and Zaba, Lisa C and Chang, Howard Y and Greenleaf, William J},
-  title     = {Transposition of native chromatin for fast and sensitive epigenomic profiling of open chromatin, DNA-binding proteins and nucleosome position},
-  journal   = {Nature methods},
-  year      = {2013},
-  volume    = {10},
-  number    = {12},
-  pages     = {1213},
-  publisher = {Nature Publishing Group},
 }
 
 @Article{carver2012bamview,
@@ -681,6 +609,376 @@ https://www.nature.com/articles/srep25474#supplementary-information},
   doi       = {10.1186/1471-2105-11-237},
   publisher = {BioMed Central},
   url       = {https://doi.org/10.1186/1471-2105-11-237},
+}
+﻿
+
+@Article{Sun2019,
+  author        = {Sun, Y. and Miao, N. and Sun, T.},
+  title         = {Detect accessible chromatin using ATAC-sequencing, from principle to applications},
+  journal       = {Hereditas},
+  year          = {2019},
+  volume        = {156},
+  pages         = {29},
+  issn          = {1601-5223 (Electronic)
+0018-0661 (Linking)},
+  __markedentry = {[Haibo:6]},
+  doi           = {10.1186/s41065-019-0105-9},
+  type          = {Journal Article},
+  url           = {https://www.ncbi.nlm.nih.gov/pubmed/31427911},
+}
+
+@Article{Maeshima2019,
+  author        = {Maeshima, Kazuhiro and Ide, Satoru and Babokhov, Michael},
+  title         = {Dynamic chromatin organization without the 30-nm fiber},
+  journal       = {Current Opinion in Cell Biology},
+  year          = {2019},
+  volume        = {58},
+  pages         = {95-104},
+  issn          = {0955-0674},
+  __markedentry = {[Haibo:6]},
+  doi           = {https://doi.org/10.1016/j.ceb.2019.02.003},
+  type          = {Journal Article},
+  url           = {http://www.sciencedirect.com/science/article/pii/S0955067418301881},
+}
+
+@Article{Chen2019,
+  author        = {Chen, H. and Lareau, C. and Andreani, T. and Vinyard, M. E. and Garcia, S. P. and Clement, K. and Andrade-Navarro, M. A. and Buenrostro, J. D. and Pinello, L.},
+  title         = {Assessment of computational methods for the analysis of single-cell ATAC-seq data},
+  journal       = {Genome Biol},
+  year          = {2019},
+  volume        = {20},
+  number        = {1},
+  pages         = {241},
+  issn          = {1474-760X (Electronic)
+1474-7596 (Linking)},
+  __markedentry = {[Haibo:6]},
+  doi           = {10.1186/s13059-019-1854-5},
+  type          = {Journal Article},
+  url           = {https://www.ncbi.nlm.nih.gov/pubmed/31739806
+https://genomebiology.biomedcentral.com/track/pdf/10.1186/s13059-019-1854-5},
+}
+
+@Article{Fiers2018,
+  author        = {Fiers, Mwej and Minnoye, L. and Aibar, S. and Bravo Gonzalez-Blas, C. and Kalender Atak, Z. and Aerts, S.},
+  title         = {Mapping gene regulatory networks from single-cell omics data},
+  journal       = {Brief Funct Genomics},
+  year          = {2018},
+  volume        = {17},
+  number        = {4},
+  pages         = {246-254},
+  issn          = {2041-2657 (Electronic)
+2041-2649 (Linking)},
+  __markedentry = {[Haibo:6]},
+  doi           = {10.1093/bfgp/elx046},
+  type          = {Journal Article},
+  url           = {https://www.ncbi.nlm.nih.gov/pubmed/29342231},
+}
+
+@Article{Ou2017,
+  author        = {Ou, H. D. and Phan, S. and Deerinck, T. J. and Thor, A. and Ellisman, M. H. and O'Shea, C. C.},
+  title         = {ChromEMT: Visualizing 3D chromatin structure and compaction in interphase and mitotic cells},
+  journal       = {Science},
+  year          = {2017},
+  volume        = {357},
+  number        = {6349},
+  issn          = {1095-9203 (Electronic)
+0036-8075 (Linking)},
+  __markedentry = {[Haibo:6]},
+  doi           = {10.1126/science.aag0025},
+  type          = {Journal Article},
+  url           = {https://www.ncbi.nlm.nih.gov/pubmed/28751582},
+}
+
+@Article{Snyder2016,
+  author        = {Snyder, M. W. and Kircher, M. and Hill, A. J. and Daza, R. M. and Shendure, J.},
+  title         = {Cell-free DNA Comprises an In Vivo Nucleosome Footprint that Informs Its Tissues-Of-Origin},
+  journal       = {Cell},
+  year          = {2016},
+  volume        = {164},
+  number        = {1-2},
+  pages         = {57-68},
+  issn          = {1097-4172 (Electronic)
+0092-8674 (Linking)},
+  __markedentry = {[Haibo:6]},
+  doi           = {10.1016/j.cell.2015.11.050},
+  type          = {Journal Article},
+  url           = {https://www.ncbi.nlm.nih.gov/pubmed/26771485},
+}
+
+@Article{Pott2015,
+  author        = {Pott, S. and Lieb, J. D.},
+  title         = {Single-cell ATAC-seq: strength in numbers},
+  journal       = {Genome Biol},
+  year          = {2015},
+  volume        = {16},
+  pages         = {172},
+  issn          = {1474-760X (Electronic)
+1474-7596 (Linking)},
+  __markedentry = {[Haibo:6]},
+  doi           = {10.1186/s13059-015-0737-7},
+  type          = {Journal Article},
+  url           = {https://www.ncbi.nlm.nih.gov/pubmed/26294014},
+}
+
+@Article{Haniford2015,
+  author        = {Haniford, D. B. and Ellis, M. J.},
+  title         = {Transposons Tn10 and Tn5},
+  journal       = {Microbiol Spectr},
+  year          = {2015},
+  volume        = {3},
+  number        = {1},
+  pages         = {MDNA3-0002-2014},
+  issn          = {2165-0497 (Electronic)
+2165-0497 (Linking)},
+  __markedentry = {[Haibo:6]},
+  doi           = {10.1128/microbiolspec.MDNA3-0002-2014},
+  type          = {Journal Article},
+  url           = {https://www.ncbi.nlm.nih.gov/pubmed/26104553},
+}
+
+@Article{Buenrostro2015c,
+  author        = {Buenrostro, J. D. and Wu, B. and Chang, H. Y. and Greenleaf, W. J.},
+  title         = {ATAC-seq: A Method for Assaying Chromatin Accessibility Genome-Wide},
+  journal       = {Curr Protoc Mol Biol},
+  year          = {2015},
+  volume        = {109},
+  pages         = {21 29 1-21 29 9},
+  issn          = {1934-3647 (Electronic)
+1934-3647 (Linking)},
+  __markedentry = {[Haibo:6]},
+  doi           = {10.1002/0471142727.mb2129s109},
+  type          = {Journal Article},
+  url           = {https://www.ncbi.nlm.nih.gov/pubmed/25559105},
+}
+
+@Article{Tsompana2014a,
+  author        = {Tsompana, Maria and Buck, Michael J.},
+  title         = {Chromatin accessibility: a window into the genome},
+  journal       = {Epigenetics \& Chromatin},
+  year          = {2014},
+  volume        = {7},
+  number        = {1},
+  pages         = {33},
+  issn          = {1756-8935},
+  __markedentry = {[Haibo:6]},
+  doi           = {10.1186/1756-8935-7-33},
+  type          = {Journal Article},
+  url           = {https://doi.org/10.1186/1756-8935-7-33},
+}
+
+@Article{Shlyueva2014,
+  author        = {Shlyueva, D. and Stampfel, G. and Stark, A.},
+  title         = {Transcriptional enhancers: from properties to genome-wide predictions},
+  journal       = {Nat Rev Genet},
+  year          = {2014},
+  volume        = {15},
+  number        = {4},
+  pages         = {272-86},
+  issn          = {1471-0064 (Electronic)
+1471-0056 (Linking)},
+  __markedentry = {[Haibo:6]},
+  doi           = {10.1038/nrg3682},
+  type          = {Journal Article},
+  url           = {https://www.ncbi.nlm.nih.gov/pubmed/24614317},
+}
+
+@Article{Thurman2012,
+  author        = {Thurman, R. E. and Rynes, E. and Humbert, R. and Vierstra, J. and Maurano, M. T. and Haugen, E. and Sheffield, N. C. and Stergachis, A. B. and Wang, H. and Vernot, B. and Garg, K. and John, S. and Sandstrom, R. and Bates, D. and Boatman, L. and Canfield, T. K. and Diegel, M. and Dunn, D. and Ebersol, A. K. and Frum, T. and Giste, E. and Johnson, A. K. and Johnson, E. M. and Kutyavin, T. and Lajoie, B. and Lee, B. K. and Lee, K. and London, D. and Lotakis, D. and Neph, S. and Neri, F. and Nguyen, E. D. and Qu, H. and Reynolds, A. P. and Roach, V. and Safi, A. and Sanchez, M. E. and Sanyal, A. and Shafer, A. and Simon, J. M. and Song, L. and Vong, S. and Weaver, M. and Yan, Y. and Zhang, Z. and Zhang, Z. and Lenhard, B. and Tewari, M. and Dorschner, M. O. and Hansen, R. S. and Navas, P. A. and Stamatoyannopoulos, G. and Iyer, V. R. and Lieb, J. D. and Sunyaev, S. R. and Akey, J. M. and Sabo, P. J. and Kaul, R. and Furey, T. S. and Dekker, J. and Crawford, G. E. and Stamatoyannopoulos, J. A.},
+  title         = {The accessible chromatin landscape of the human genome},
+  journal       = {Nature},
+  year          = {2012},
+  volume        = {489},
+  number        = {7414},
+  pages         = {75-82},
+  issn          = {1476-4687 (Electronic)
+0028-0836 (Linking)},
+  __markedentry = {[Haibo:6]},
+  doi           = {10.1038/nature11232},
+  type          = {Journal Article},
+  url           = {https://www.ncbi.nlm.nih.gov/pubmed/22955617},
+}
+
+@Article{Cui2012,
+  author        = {Cui, K. and Zhao, K.},
+  title         = {Genome-wide approaches to determining nucleosome occupancy in metazoans using MNase-Seq},
+  journal       = {Methods Mol Biol},
+  year          = {2012},
+  volume        = {833},
+  pages         = {413-9},
+  issn          = {1940-6029 (Electronic)
+1064-3745 (Linking)},
+  __markedentry = {[Haibo:6]},
+  doi           = {10.1007/978-1-61779-477-3_24},
+  type          = {Journal Article},
+  url           = {https://www.ncbi.nlm.nih.gov/pubmed/22183607},
+}
+
+@Article{Milo2010,
+  author        = {Milo, R. and Jorgensen, P. and Moran, U. and Weber, G. and Springer, M.},
+  title         = {BioNumbers--the database of key numbers in molecular and cell biology},
+  journal       = {Nucleic Acids Res},
+  year          = {2010},
+  volume        = {38},
+  number        = {Database issue},
+  pages         = {D750-3},
+  issn          = {1362-4962 (Electronic)
+0305-1048 (Linking)},
+  __markedentry = {[Haibo:6]},
+  doi           = {10.1093/nar/gkp889},
+  type          = {Journal Article},
+  url           = {https://www.ncbi.nlm.nih.gov/pubmed/19854939},
+}
+
+@Article{Jiang2009,
+  author        = {Jiang, C. and Pugh, B. F.},
+  title         = {Nucleosome positioning and gene regulation: advances through genomics},
+  journal       = {Nat Rev Genet},
+  year          = {2009},
+  volume        = {10},
+  number        = {3},
+  pages         = {161-72},
+  issn          = {1471-0064 (Electronic)
+1471-0056 (Linking)},
+  __markedentry = {[Haibo:6]},
+  doi           = {10.1038/nrg2522},
+  type          = {Journal Article},
+  url           = {https://www.ncbi.nlm.nih.gov/pubmed/19204718},
+}
+
+@Article{Reznikoff2008,
+  author        = {Reznikoff, W. S.},
+  title         = {Transposon Tn5},
+  journal       = {Annu Rev Genet},
+  year          = {2008},
+  volume        = {42},
+  pages         = {269-86},
+  issn          = {0066-4197 (Print)
+0066-4197 (Linking)},
+  __markedentry = {[Haibo:6]},
+  doi           = {10.1146/annurev.genet.42.110807.091656},
+  type          = {Journal Article},
+  url           = {https://www.ncbi.nlm.nih.gov/pubmed/18680433},
+}
+
+@Article{Annunziato2008,
+  author        = {Annunziato, Anthony T.},
+  title         = {DNA Packaging: Nucleosomes and Chromatin},
+  journal       = {Nature Education},
+  year          = {2008},
+  number        = {1},
+  pages         = {26},
+  __markedentry = {[Haibo:6]},
+  type          = {Journal Article},
+  url           = {https://www.nature.com/scitable/topicpage/dna-packaging-nucleosomes-and-chromatin-310/},
+}
+
+@Article{Giresi2007,
+  author        = {Giresi, P. G. and Kim, J. and McDaniell, R. M. and Iyer, V. R. and Lieb, J. D.},
+  title         = {FAIRE (Formaldehyde-Assisted Isolation of Regulatory Elements) isolates active regulatory elements from human chromatin},
+  journal       = {Genome Res},
+  year          = {2007},
+  volume        = {17},
+  number        = {6},
+  pages         = {877-85},
+  issn          = {1088-9051 (Print)
+1088-9051 (Linking)},
+  __markedentry = {[Haibo:6]},
+  doi           = {10.1101/gr.5533506},
+  type          = {Journal Article},
+  url           = {https://www.ncbi.nlm.nih.gov/pubmed/17179217},
+}
+
+@Article{Crawford2006,
+  author        = {Crawford, G. E. and Holt, I. E. and Whittle, J. and Webb, B. D. and Tai, D. and Davis, S. and Margulies, E. H. and Chen, Y. and Bernat, J. A. and Ginsburg, D. and Zhou, D. and Luo, S. and Vasicek, T. J. and Daly, M. J. and Wolfsberg, T. G. and Collins, F. S.},
+  title         = {Genome-wide mapping of DNase hypersensitive sites using massively parallel signature sequencing (MPSS)},
+  journal       = {Genome Res},
+  year          = {2006},
+  volume        = {16},
+  number        = {1},
+  pages         = {123-31},
+  issn          = {1088-9051 (Print)
+1088-9051 (Linking)},
+  __markedentry = {[Haibo:6]},
+  doi           = {10.1101/gr.4074106},
+  type          = {Journal Article},
+  url           = {https://www.ncbi.nlm.nih.gov/pubmed/16344561},
+}
+
+@Article{Milani2016,
+  author  = {Milani, Pamela and Escalante-Chong, Renan and Shelley, Brandon C. and Patel-Murray, Natasha L. and Xin, Xiaofeng and Adam, Miriam and Mandefro, Berhan and Sareen, Dhruv and Svendsen, Clive N. and Fraenkel, Ernest},
+  title   = {Cell freezing protocol suitable for ATAC-Seq on motor neurons derived from human induced pluripotent stem cells},
+  journal = {Scientific Reports},
+  year    = {2016},
+  volume  = {6},
+  pages   = {25474},
+  issn    = {2045-2322 (Electronic)
+2045-2322 (Linking)},
+  doi     = {10.1038/srep25474
+https://www.nature.com/articles/srep25474#supplementary-information},
+  type    = {Journal Article},
+  url     = {https://doi.org/10.1038/srep25474},
+}
+
+@Article{Gilbert2005,
+  author  = {Gilbert, N. and Ramsahoye, B.},
+  title   = {The relationship between chromatin structure and transcriptional activity in mammalian genomes},
+  journal = {Brief Funct Genomic Proteomic},
+  year    = {2005},
+  volume  = {4},
+  number  = {2},
+  pages   = {129--142},
+  issn    = {2041-2649},
+  doi     = {10.1093/bfgp/4.2.129},
+  type    = {Journal Article},
+  url     = {https://doi.org/10.1093/bfgp/4.2.129},
+}
+
+@Article{Buenrostro2015b,
+  author  = {Buenrostro, Jason D. and Wu, Beijing and Litzenburger, Ulrike M. and Ruff, Dave and Gonzales, Michael L. and Snyder, Michael P. and Chang, Howard Y. and Greenleaf, William J.},
+  title   = {Single-cell chromatin accessibility reveals principles of regulatory variation},
+  journal = {Nature},
+  year    = {2015},
+  volume  = {523},
+  number  = {7561},
+  pages   = {486--490},
+  month   = jul,
+  issn    = {1476-4687 (Electronic)
+0028-0836 (Linking)},
+  doi     = {10.1038/nature14590},
+  type    = {Journal Article},
+  url     = {https://doi.org/10.1038/nature14590},
+}
+
+@Article{Buenrostro2013,
+  author  = {Buenrostro, Jason D. and Giresi, Paul G. and Zaba, Lisa C. and Chang, Howard Y. and Greenleaf, William J.},
+  title   = {Transposition of native chromatin for fast and sensitive epigenomic profiling of open chromatin, {DNA}-binding proteins and nucleosome position},
+  journal = {Nature Methods},
+  year    = {2013},
+  volume  = {10},
+  number  = {12},
+  pages   = {1213--1218},
+  month   = dec,
+  issn    = {1548-7105 (Electronic)
+1548-7091 (Linking)},
+  doi     = {10.1038/nmeth.2688},
+  type    = {Journal Article},
+  url     = {https://doi.org/10.1038/nmeth.2688},
+}
+
+@Article{Bednar2017,
+  author  = {Bednar, Jan and Garcia-Saez, Isabel and Boopathi, Ramachandran and Cutter, Amber R. and Papai, Gabor and Reymer, Anna and Syed, Sajad H. and Lone, Imtiaz Nisar and Tonchev, Ognyan and Crucifix, Corinne and Menoni, Hervé and Papin, Christophe and Skoufias, Dimitrios A. and Kurumizaka, Hitoshi and Lavery, Richard and Hamiche, Ali and Hayes, Jeffrey J. and Schultz, Patrick and Angelov, Dimitar and Petosa, Carlo and Dimitrov, Stefan},
+  title   = {Structure and dynamics of a 197 bp nucleosome in complex with linker histone {H1}},
+  journal = {Molecular Cell},
+  year    = {2017},
+  volume  = {66},
+  number  = {3},
+  pages   = {384--397.e8},
+  month   = may,
+  issn    = {1097-4164 (Electronic)
+1097-2765 (Linking)},
+  doi     = {10.1016/j.molcel.2017.04.012},
+  type    = {Journal Article},
+  url     = {https://doi.org/10.1016/j.molcel.2017.04.012},
 }
 
 @Comment{jabref-meta: databaseType:bibtex;}

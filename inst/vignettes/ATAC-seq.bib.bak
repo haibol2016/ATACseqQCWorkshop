@@ -1,4 +1,15 @@
 % Encoding: UTF-8
+@article{Zhu2010,
+  author        = {Zhu, Lihua J. and Gazin, Claude and Lawson, Nathan D. and Pagès, Hervé and Lin, Simon M. and Lapointe, David S. and Green, Michael R.},
+  title         = {ChIPpeakAnno: a {Bioconductor} package to annotate {ChIP-seq} and {ChIP-chip} data},
+  journal       = {BMC Bioinformatics},
+  year          = {2010},
+  volume        = {11},
+  number        = {1},
+  pages         = {237},
+  doi           = {10.1186/1471-2105-11-237},
+  url           = {https://doi.org/10.1186/1471-2105-11-237},
+}
 
 @article{Wang2012,
   author        = {Wang, Ya-Mei and Zhou, Ping and Wang, Li-Yong and Li, Zhen-Hua and Zhang, Yao-Nan and Zhang, Yu-Xiang},
@@ -657,6 +668,17 @@ https://www.nature.com/articles/srep25474#supplementary-information},
   publisher = {Nature Publishing Group},
 }
 
+@Article{zhu2010chippeakanno,
+  author    = {Zhu, Lihua J and Gazin, Claude and Lawson, Nathan D and Pag{\`e}s, Herv{\'e} and Lin, Simon M and Lapointe, David S and Green, Michael R},
+  title     = {ChIPpeakAnno: a Bioconductor package to annotate ChIP-seq and ChIP-chip data},
+  journal   = {BMC bioinformatics},
+  year      = {2010},
+  volume    = {11},
+  number    = {1},
+  pages     = {237},
+  publisher = {BioMed Central},
+}
+
 @Article{Lee526079,
   author       = {Lee, Yi-Jing and Chang, Pearl and Lu, Jui-Hsien and Chen, Pao-Yang and Wang, Chung-Ju Rachel},
   title        = {Assessing chromatin accessibility in maize using ATAC-seq},
@@ -668,19 +690,6 @@ https://www.nature.com/articles/srep25474#supplementary-information},
   eprint       = {https://www.biorxiv.org/content/early/2019/01/22/526079.full.pdf},
   publisher    = {Cold Spring Harbor Laboratory},
   url          = {https://www.biorxiv.org/content/early/2019/01/22/526079},
-}
-
-@Article{Zhu2010,
-  author    = {Zhu, Lihua J. and Gazin, Claude and Lawson, Nathan D. and Pagès, Hervé and Lin, Simon M. and Lapointe, David S. and Green, Michael R.},
-  title     = {ChIPpeakAnno: a {Bioconductor} package to annotate {ChIP-seq} and {ChIP-chip} data},
-  journal   = {BMC Bioinformatics},
-  year      = {2010},
-  volume    = {11},
-  number    = {1},
-  pages     = {237},
-  doi       = {10.1186/1471-2105-11-237},
-  publisher = {BioMed Central},
-  url       = {https://doi.org/10.1186/1471-2105-11-237},
 }
 
 @Comment{jabref-meta: databaseType:bibtex;}

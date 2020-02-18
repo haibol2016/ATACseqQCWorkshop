@@ -1,16 +1,15 @@
-# ATAC-seq data quality control using the ATACseqQC package
+# Best practices for ATAC-seq QC and data analysis
 
-## Haibo Liu*, Jianghong Ou* and Lihua Julie Zhu*
+## Haibo Liu*, Rui Li*, Kai Hu* and Lihua Julie Zhu*
 
 Haibo Liu, Department of Animal Science, Iowa State University, Ames, IA, 50010, USA. [haibol@iastate.edu](mailto:haibol@iastate.edu)  
-Jianhong Ou, Department of Cell Biology, Duke University Medical Center, Durham, NC, 27710, USA. [Jianhong.ou@duke.edu](mailto:Jianhong.ou@duke.edu)  
-Corresponding author: Lihua Julie Zhu, Department of Molecular, Cell and Cancer Biology, Program in Molecular Medicine, Program in Bioinformatics and Integrative Biology, Worcester, MA, 01655, USA. [Julie.Zhu@umassmed.edu](mailto:Julie.Zhu@umassmed.edu)  
+Jianhong Ou, Department of Cell Biology, Duke University Medical Center, Durham, NC, 27710, USA. [Rui.Li@umassmed.edu](mailto:Rui.Li@umassmed.edu)  
+Kai Hu, Department of Molecular, Cell and Cancer Biology, Worcester, MA01655, USA. [Kai.Hu@umassmed.edu](mailto:Kai.Hu@umassmed.edu)  
+Corresponding author: Lihua Julie Zhu, Department of Molecular, Cell and Cancer Biology, Program in Molecular Medicine, Program in Bioinformatics and Integrative Biology, Worcester, MA01655, USA. [Julie.Zhu@umassmed.edu](mailto:Julie.Zhu@umassmed.edu)  
 *Denotes workshop presenter
 
 # Workshop Description
-In this workshop, participants will not only gain the theoretical understanding of the characteristics of ATAC-seq data and the workflow of ATAC-seq data quality assessment, but will also obtain hands-on experience in analyzing ATAC-seq data using the ATACseqQC package.
-
-We will provide a brief introduction to the ATAC-seq technology, high quality data generation and computational analysis workflow. Then, we will give a demo to perform a comprehensive quality assessment of a typical ATAC-seq dataset using the ATACseqQC package. Participants will have the opportunity to analyze several excerpted datasets of different quality. Detailed notes and R code will be provided for reproducibility and follow-up exploration.
+IIn this workshop, we will provide a valuable introduction to the current best practices for ATAC-seq assays, high quality data generation and computational analysis workflow. Then, we will walk the participants through the analysis of an ATAC-seq data set. single cell ATAC-seq data analysis will be briefly covered at the end by comparing to the bulk ATAC-seq data analysis. Detailed tutorials including R scripts will be provided for reproducibility and follow-up exploration.
 
 **Expectation:** After this workshop, participants should be able to apply the learned skills to analyzing their own ATAC-seq data, provide constructive feedback to experimenters who expect to generate high-quality ATAC-seq data, and identify ATAC-seq data of reliable quality for further analysis.
 
