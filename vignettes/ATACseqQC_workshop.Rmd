@@ -1,12 +1,12 @@
 ---
-title: "ATAC-seq data quality control using the ATACseqQC package"
-author: "Haibo Liu, Jianhong Ou, Lihua Julie Zhu"
+title: "Best practices on ATAC-seq QC and data analysis"
+author: Haibo Liu^[haibo.liu@umassmed.edu], Jianhong Ou^[Jianhong.ou@duke.edu], Rui Li^[Rui.Li@umassmed.edu], Kai Hu^[Kai.Hu@umassmed.edu], Lihua Julie Zhu^[Julie.Zhu@umassmed.edu]
 date: "`r format(Sys.time(), '%B %d, %Y')`"
-package: "`r packageVersion('ATACseqQCWorkshop')`"
+package: "`r packageVersion('Bioc2020_ATACseqQC_Workshop')`"
 bibliography:  "`r system.file('vignettes', 'ATAC-seq.bib', package = 'ATACseqQCWorkshop')`"
 csl:  "`r system.file('vignettes', 'nature.csl', package = 'ATACseqQCWorkshop')`"
 vignette:  >
-  %\VignetteIndexEntry{ATACseqQCWorshop}
+  %\VignetteIndexEntry{Bioc2020_ATACseqQC_Workshop}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 output: 
@@ -28,19 +28,95 @@ suppressPackageStartupMessages({
   library(SRAdb)
   library(GenomicAlignments)
 })
+
 knitr::opts_chunk$set(echo = TRUE, eval=TRUE, fig.width=8, 
                       fig.height=6, warning = FALSE, 
-                      message = FALSE, encoding = "UTF-16")
+                      message = FALSE, encoding = "UTF-8")
 ```
 
-## Instructors and contact information
-***
-* [Haibo Liu](https://github.com/haibol2016) (Department of Animal Science, Iowa State University, Ames, IA, 50010, USA. haibol@iastate.edu)  
-* [Jianhong Ou](https://github.com/jianhong) (Department of Cell Biology, Duke University Medical Center, Durham, NC, 27710, USA. Jianhong.ou@duke.edu)   
-* [Lihua Julie Zhu](https://github.com/LihuaJulieZhu) (Corresponding author, Department of Molecular, Cell and Cancer Biology, Program in Molecular Medicine, Program in Bioinformatics and Integrative Biology, UMass Medical School, Worcester, MA, 01655, USA. Julie.Zhu@umassmed.edu)  
+# Best practices on ATAC-seq QC and data analysis
+
+Authors:
+    Haibo Liu^[Department of Molecular, Cell, and Cancer Biology, University of Massachusetts Medical School, 364 Plantation Street, Worcester, MA, 01605, USA.],
+   Jianhong Ou^[Regeneration NEXT, Duke University School of Medicine, Duke University, Durham, NC, 27701, USA. ],
+   Rui Liu^[Department of Molecular, Cell, and Cancer Biology, University of Massachusetts Medical School, 364 Plantation Street, Worcester, MA, 01605, USA.],
+   Kai Hu^[Department of Molecular, Cell, and Cancer Biology, University of Massachusetts Medical School, 364 Plantation Street, Worcester, MA, 01605, USA.],
+   Lihua Julie^[Corresponding author, Department of Molecular, Cell and Cancer Biology, Program in Molecular Medicine, Program in Bioinformatics and Integrative Biology, UMass Medical School, Worcester, MA, 01655, USA.].
+    <br/>
+Last modified: July 13, 2018.
 
 
-## Introduction to the ATAC-seq technology
+## Overview
+
+### Description  
+
+In this workshop, we will provide a valuable introduction to the current best practices on ATAC-seq assays, high quality data generation and computational analysis workflow. Then, we will walk the participants through the analysis of an ATAC-seq data set. Detailed tutorials including R scripts will be provided for reproducibility and follow-up practice.
+
+Expectation: After this workshop, participants should be able to apply the learned skills to analyzing their own ATAC-seq data, provide constructive feedback to experimenters who expect to generate high-quality ATAC-seq data, and identify ATAC-seq data of reliable quality for further analysis.
+
+### Pre-requisites
+
+Participants are expected to have basic knowledge as follows:
+
+* Basic knowledge of R syntax
+* Some familiarity with the GenomicRanges, BSgenome, GenomicAlignments classes
+* Familiarity with the SAM file format (https://samtools.github.io/hts-specs/SAMv1.pdf)
+* Basic understanding of how ATAC-seq data is generated is helpful but not required. Please refer to the following reference for detailed information about the ATAC-seq technology.
+
+Jason Buenrostro, Beijing Wu, Howard Chang, William Greenleaf. ATAC-seq: A Method for Assaying Chromatin Accessibility Genome-Wide. Curr Protoc Mol Biol. 2015; 109: 21.29.1-21.29.9. doi:10.1002/0471142727.mb2129s109.
+
+Please refer to the following resource to preprocess the ATAC-seq data prior to performing quality assessment using the ATACseqQC package.
+
+The Additional File 1 from our publication (Ou et al., 2018; https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5831847/)
+
+
+### Participation
+
+After the lecture, participants are expected to follow along the hands-on session. we highly recommend participants bringing your own laptop.
+
+### _R_ / _Bioconductor_ packages used
+
+The following R/Bioconductor packages will be explicitly used:
+ATACseqQC
+ChIPpeakAnno
+GenomicAlignments
+BSgenome.Hsapiens.UCSC.hg38
+TxDb.Hsapiens.UCSC.hg38.knownGene
+MotifDb
+motifStack
+
+### Time outline
+
+| Activity                         | Time |
+|----------------------------------|------|
+| Introduction to ATAC-seq         | 5m   |
+| Preprocessing of ATAC-seq data   | 5m   |
+| ATAC-seq data QC workflow        | 10m  |
+| Downstream ATAC-seq data analysis| 5m   |
+|Hands on session                  | 30m  |
+| Q & A                            | 5m   |
+
+
+### Workshop goals and objectives
+
+#### Learning goals  
+
+* Understand how ATAC-seq data are generated  
+* Learn how to perform comprehensive quality control of ATAC-seq data  
+* Identify high quality ATAC-seq data for downstream analysis 
+* Identify most likely reasons for ATAC-seq data failing QC  
+* familiar with ATAC-seq data analysis workflow  
+
+#### Learning objectives  
+* Analyze a pre-aligned, excerpted ATAC-seq dataset from the original ATAC-seq publication (Buenrostro et al., 2015) to produce comprehensive insights into the quality of the data
+* Create a plot showing library fragment size distribution
+* Create overview plots showing signal distribution around transcription start sites
+* Create a plot showing CTCF footprints
+* Evaluate the ATAC-seq data for mitochondrial DNA contamination, duplication rate, background noise level, library complexity and Tn5 transposition optimality
+
+## Workshop
+
+### Introduction to the ATAC-seq technology
 ***
 In eukaryotes, nucleosomes are basic DNA packaging units, each of which consists of a nucleosome core particle (NPC), linker DNA and linker histone H1. The NPC is composed *ca.* 147 bp of DNA wrapped around a histone core octamer, spaced from adjacent NPCs by a linker DNA of *ca.* 20-90 bp. Linker histones binds additional 20 bp of linker DNA at its entry/exit points to a NPC to stabilize nucleosome conformation and higher-order chromatin assembly. Nucleosomes can be hierarchically assembled into higher-order structures, eventually into chromatin or even chromosomes [@Pederson1986; @Bednar2017] (Figure 1, adapted from [Nature Education 1(1):26](https://www.nature.com/scitable/topicpage/dna-packaging-nucleosomes-and-chromatin-310)). In cells, different genomic regions are packaged with different accessibility to transcriptional machinery. Most notably, promoters and enhancers of actively transcribed genes are devoid of histone interaction, which are called "open" chromatin regions (Figure 2, adapted from Wang _et al_ [@Wang2012]). Thus, the interplay between histones and DNA serves as an important layer for controlling gene expression [@Gilbert2005; @Perino2016]. Therefore, it is important to determine the chromatin accessibility to better understand gene expression regulation in cells. 
 <br/>
@@ -49,18 +125,18 @@ knitr::include_graphics(system.file('vignettes', 'Figure 1. DNA packaging.png', 
 ```
 <br/>
 ```{r, out.width='80%', fig.align='center', fig.cap='Figure 2. Open and closed chromatin.', echo = FALSE}
-knitr::include_graphics(system.file('vignettes', 'Figure 2. Open and closed chromatin.png', package = 'ATACseqQCWorkshop'))
+knitr::include_graphics(system.file('vignettes', 'Figure 2. Open and closed chromatin.png', package = 'Bioc2020_ATACseqQC_Workshop'))
 ```
 <br/>
 In recent years, a few methods have been developed to profile genome-wide chromatin accessibility (Figure 3, adapted from Tsompana and Buck [@Tsompana2014]) For review, see Tsompana and Buck [@Tsompana2014]. Among these methods, ATAC-seq (an assay for Transposase-Accessible Chromatin using sequencing) is a rapid and sensitive method for profiling chromatin accessibility [@Buenrostro2013]. Compared to other methods, such as MNase-seq, FAIRE-seq and DNase-seq, ATAC-seq allows comparable or even higher signal-to-noise ratio, but requires much less amount of the biological materials and time to process. Briefly, hyperactive Tn5 transposases preloaded with adapters are first added to simultaneously tag and fragment open chromatin in nuclei (500~50,000) isolated from fresh or cryopreserved tissues/cells at nearly native states, a process called tagmentation. The tagged DNA fragments are then amplified and simultaneously sequencing adapters and indices compatible to Illumina sequencing platforms are added by using PCR with optimized cycles (Figure 4, adapted from Buenrostro _et al_ [@Buenrostro2013]).  
 <br/>
 ```{r, out.width='80%', fig.align='center', fig.cap='Figure 3. Signal features generated by different methods for profiling chromatin accessibility.', echo = FALSE}
-knitr::include_graphics(system.file('vignettes', 'Figure 3. Chromatin accessibility.png', package = 'ATACseqQCWorkshop'))
+knitr::include_graphics(system.file('vignettes', 'Figure 3. Chromatin accessibility.png', package = 'Bioc2020_ATACseqQC_Workshop'))
 ```
 <br/>
 
 ```{r, out.width='80%', fig.align='center', fig.cap='Figure 4. Schematic showing of ATAC-seq library preparation.', echo = FALSE}
-knitr::include_graphics(system.file('vignettes', 'Figure 4. Library preparation.png', package = 'ATACseqQCWorkshop'))
+knitr::include_graphics(system.file('vignettes', 'Figure 4. Library preparation.png', package = 'Bioc2020_ATACseqQC_Workshop'))
 ```
 <br/>
 Since its first development, ATAC-seq has been used for quite a few purposes [@Buenrostro2013; @Buenrostro2015b]:  
@@ -74,7 +150,7 @@ Since its first development, ATAC-seq has been used for quite a few purposes [@B
 The ATAC-seq wet-lab protocol is relatively simple and easy. However, to ensure a successful ATAC-seq experiment, step-by-step quality assurance processes, including both wet lab quality control and _in silico_ quality assessment, are essential (Figure 5, modified from Milani _et al_ [@Milani2016]). In this workshop we will mainly cover the post-alignment QC steps using our ATACseqQC package [@Ou2018].  
 <br/>
 ```{r, out.width='80%', fig.align='center', fig.cap='Figure 5. Quality control steps in ATAC-seq assays.', echo = FALSE}
-knitr::include_graphics(system.file('vignettes', 'Figure 5. QC steps in ATAC-seq.png', package = 'ATACseqQCWorkshop'))
+knitr::include_graphics(system.file('vignettes', 'Figure 5. QC steps in ATAC-seq.png', package = 'Bioc2020_ATACseqQC_Workshop'))
 ```
 <br/>
 
@@ -109,7 +185,7 @@ FASTQC can generate a summary of the quality of raw reads, but it can't reveal t
 
 ```{r bamQC}
 ## bamQC
-bamQC(bamFile, outPath=NULL)
+bamQC(bamFile, outPath = NULL)
 ```
 
 ### Assessing insert size distribution
@@ -117,11 +193,11 @@ bamQC(bamFile, outPath=NULL)
 It is known that in ATAC-seq experiments, tagmentation of Tn5 transposases produce signature size pattern of fragments derived from nucleosome-free regions, mononucleosome, dinucleosome, trinucleosome and longer oligonucleosome from other open chromatin regions (Figure 6, adapted from Li _et al_ [@Li2019]) . A typical distribution of insert fragment size is shown in (Figure 7, adapted from Buenrostro _et al_ [@Buenrostro2015a]. The function `fragSizeDist` in the ATACseqQC package can be used to generate such a distribution plot. Please note the pre-filtered BAM files need to be used to get an unbiased distribution of insert fragment size in the ATAC-seq library.  
 <br/>
 ```{r, out.width='80%', fig.align='center', fig.cap='Figure 6. Fragments generated by Tn5 tagementation in ATAC-seq.', echo = FALSE}
-knitr::include_graphics(system.file('vignettes', 'Figure 6. Fragments generated by Tn5 tagmentation in ATAC-seq.png', package = 'ATACseqQCWorkshop'))
+knitr::include_graphics(system.file('vignettes', 'Figure 6. Fragments generated by Tn5 tagmentation in ATAC-seq.png', package = 'Bioc2020_ATACseqQC_Workshop'))
 ```
 <br/>
 ```{r, out.width='80%', fig.align='center', fig.cap='Figure 7. Library insert fragment size distribution in a typical ATAC-seq assay.', echo = FALSE}
-knitr::include_graphics(system.file('vignettes', 'Figure 7. Library insert size distribution.png', package = 'ATACseqQCWorkshop'))
+knitr::include_graphics(system.file('vignettes', 'Figure 7. Library insert size distribution.png', package = 'Bioc2020_ATACseqQC_Workshop'))
 ```
 <br/>
 ```{r fragSizeDist, fig.align='center', fig.height=6, fig.width=8, fig.cap = "Figure 8. Size distribution of ATAC-seq library insert fragments."}
@@ -179,7 +255,7 @@ dir(outPath)
 Previous studies have shown that transcriptionally active elements, such as promoters and enhancers, are defined by short regions of DNA that are devoid of direct histone interactions. These regions of "open" chromatin are usually occupied by transcription factors that facilitate gene transcription. By contrast, the promoters of genes that are not actively expressed in a given cell type exhibit much tighter association with histones, which prevents transcription factors from activating transcription and contributes to gene repression. Typical nucleosome density distributions around TSSs of actively transcribed genes and active enhancers are shown in Figure 9, adapted from Baldi [@Baldi2018]. The function `enrichedFragments` is for calculating signals around TSSs using the split BAM objects. And the function `featureAlignedHeatmap` is for generating a heatmap showing signal distribution around TSSs. The function `matplot` is for summarizing the signal distribution around TSSs using a density plot.  
 <br/>
 ```{r, out.width='80%', fig.align='center', fig.cap='Figure 9. Nucleosome density distribution around TSSs and TF binding sites.', echo = FALSE}
-knitr::include_graphics(system.file('vignettes', 'Figure 8. Nucleosome density distribution around TSS and TF binding site.png', package = 'ATACseqQCWorkshop'))
+knitr::include_graphics(system.file('vignettes', 'Figure 8. Nucleosome density distribution around TSS and TF binding site.png', package = 'Bioc2020_ATACseqQC_Workshop'))
 ```
 <br/>
 ```{r heatmap, fig.height=6, fig.width=4, fig.align='center', fig.cap = "Figure 10. Heatmap showing distributions of reads from different bins around TSSs."}
@@ -303,7 +379,7 @@ Two subsets of filtered BAM files from SRR891270, containing alignments on **chr
 
 Due to the tight schedule, we will not demonstrate how to perform the QC analyses using the functions `saturationPlot`,`factorFootprints`, `NFRscore`, `PTscore`, `TSSEscore`, or `vPlot`. You may play with the other data and these functions after class. You are encouraged to post your questions at https://support.bioconductor.org with post title "ATACseqQC". 
 
-For your reference, example R scripts for Tasks 1-5 are available at **"inst/vignettes/BioC2019.demo.ATACseqQC.R"**.  
+For your reference, example R scripts for Tasks 1-5 are available at **"inst/vignettes/BioC2020.demo.ATACseqQC.R"**.  
 
 <br/>
 First, load the required packages.
@@ -324,7 +400,7 @@ To get the location of the BAM file for Tasks 1 and 2, , please copy and run the
 ```{r BAMFileWithDuplicates4ch20}
 dupBamFile <- system.file("vignettes/extdata", 
                        "SRR891270.chr20.full.bam", 
-                       package = "ATACseqQCWorkshop")
+                       package = "Bioc2020_ATACseqQC_Workshop")
 ```
 
 Task 2. Check library complexity for SRR891270 using the function `estimateLibComplexity`. CAUTION: duplicated should NOT be removed from the input BAM file.
@@ -334,7 +410,7 @@ Using the following code to get access to the BAM file for Tasks 2-4.
 ```{r getBAMFile}
 bamFile <- system.file("vignettes/extdata", 
                        "SRR891270.chr20.rmdup.bam", 
-                       package = "ATACseqQCWorkshop")
+                       package = "Bioc2020_ATACseqQC_Workshop")
 bamFileLabels <- gsub(".rmdup.bam", "", 
                       basename(bamFile))
 ```
