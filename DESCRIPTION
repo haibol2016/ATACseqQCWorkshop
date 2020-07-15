@@ -43,14 +43,13 @@ Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.0
-Depends: R (>= 3.4), BiocGenerics, S4Vectors
-Imports: ATACseqQC, BSgenome, Biostrings, ChIPpeakAnno, IRanges,
-        GenomicRanges, GenomicAlignments, GenomeInfoDb, GenomicScores,
-        graphics, grid, limma, Rsamtools (>= 1.31.2), randomForest,
-        rtracklayer, stats, motifStack, preseqR, utils, KernSmooth,
-        edgeR, BiocStyle, knitr, BSgenome.Hsapiens.UCSC.hg38,
-        TxDb.Hsapiens.UCSC.hg38.knownGene, BSgenome.Hsapiens.UCSC.hg19,
-        TxDb.Hsapiens.UCSC.hg19.knownGene, MotifDb,trackViewer,SRAdb
+Depends: R (>= 4.0), BiocGenerics, S4Vectors, ATACseqQC, BSgenome, Biostrings,
+    ChIPpeakAnno, IRanges, GenomicRanges, GenomicAlignments, GenomeInfoDb, 
+	GenomicScores, graphics, grid, limma, Rsamtools (>= 1.31.2), randomForest,
+    rtracklayer, stats, motifStack, preseqR, utils, KernSmooth, edgeR, BiocStyle,
+	knitr, BSgenome.Hsapiens.UCSC.hg38,TxDb.Hsapiens.UCSC.hg38.knownGene, 
+	BSgenome.Hsapiens.UCSC.hg19, TxDb.Hsapiens.UCSC.hg19.knownGene, 
+	MotifDb,trackViewer,SRAdb
 Suggests: knitr, rmarkdown, pkgdown
 URL: https://haibol2016.github.io/ATACseqQCWorkshop/
 BugReports: https://github.com/haibol2016/ATACseqQCWorkshop/issues/new/choose
