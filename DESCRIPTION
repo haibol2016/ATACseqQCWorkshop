@@ -27,36 +27,40 @@ Description: ATAC-seq, an assay for Transposase-Accessible Chromatin
     accessibility analysis. Compared to other methods, such as 
     MNase-seq, FAIRE-seq and DNAse-seq, ATAC-seq requires less 
     biological materials and time to process. In this workshop, 
-	participants will not only gain the theoretical understanding of
-	the characteristics of ATAC-seq data and the workflow of ATAC-seq
-	data quality assessment, but will also obtain hands-on experience
-	in analyzing ATAC-seq data using the ATACseqQC package. We will
-	provide a brief introduction to the ATAC-seq technology, high
-	quality data generation and computational analysis workflow. Then, 
-	we will give a demo to perform a comprehensive quality assessment
-	of a typical ATAC-seq dataset using the ATACseqQC package. Participants 
-	will have the opportunity to analyze several excerpted datasets of 
-	different quality. Detailed notes and R code will be provided for
-	reproducibility and follow-up practicing. 
+    participants will not only gain the theoretical understanding of
+    the characteristics of ATAC-seq data and the workflow of ATAC-seq
+    data quality assessment, but will also obtain hands-on experience
+    in analyzing ATAC-seq data using the ATACseqQC package. We will
+    provide a brief introduction to the ATAC-seq technology, high
+    quality data generation and computational analysis workflow. Then, 
+    we will give a demo to perform a comprehensive quality assessment
+    of a typical ATAC-seq dataset using the ATACseqQC package. Participants 
+    will have the opportunity to analyze several excerpted datasets of 
+    different quality. Detailed notes and R code will be provided for
+reproducibility and follow-up practicing. 
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.0
 Depends: R (>= 3.4), BiocGenerics, S4Vectors
-Imports: ATACseqQC, BSgenome, Biostrings, ChIPpeakAnno, IRanges, 
-    GenomicRanges,
-    GenomicAlignments, GenomeInfoDb, GenomicScores, graphics, grid,
-    limma, Rsamtools (>= 1.31.2), randomForest, rtracklayer, stats,
-    motifStack, preseqR, utils, KernSmooth, edgeR, BiocStyle, knitr,
-    BSgenome.Hsapiens.UCSC.hg38, TxDb.Hsapiens.UCSC.hg38.knownGene,
-    BSgenome.Hsapiens.UCSC.hg19, TxDb.Hsapiens.UCSC.hg19.knownGene,
-    MotifDb,trackViewer,SRAdb
-Suggests: 
-    knitr,
-    rmarkdown,
-    pkgdown
+Imports: ATACseqQC, BSgenome, Biostrings, ChIPpeakAnno, IRanges,
+        GenomicRanges, GenomicAlignments, GenomeInfoDb, GenomicScores,
+        graphics, grid, limma, Rsamtools (>= 1.31.2), randomForest,
+        rtracklayer, stats, motifStack, preseqR, utils, KernSmooth,
+        edgeR, BiocStyle, knitr, BSgenome.Hsapiens.UCSC.hg38,
+        TxDb.Hsapiens.UCSC.hg38.knownGene, BSgenome.Hsapiens.UCSC.hg19,
+        TxDb.Hsapiens.UCSC.hg19.knownGene, MotifDb,trackViewer,SRAdb
+Suggests: knitr, rmarkdown, pkgdown
 URL: https://haibol2016.github.io/ATACseqQCWorkshop/
 BugReports: https://github.com/haibol2016/ATACseqQCWorkshop/issues/new/choose
 VignetteBuilder: knitr
 DockerImage: nemat1976/ATACseqQCWorkshop:latest
+NeedsCompilation: no
+Packaged: 2020-07-15 15:34:29 UTC; Haibo
+Author: Haibo Liu [aut, cre],
+  Jianhong Ou [aut],
+  Rui Li [aut],
+  Kai Hu [aut],
+  Liuhua Zhu [aut]
+Maintainer: Haibo Liu <haibo.liu@umassmed.edu>

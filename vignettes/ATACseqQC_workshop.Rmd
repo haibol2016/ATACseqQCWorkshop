@@ -173,12 +173,12 @@ Before using the ATACSeqQC package to assess the quality of ATAC-seq data, sever
 
 ## ATACseqQC workflow
 ***
-In this workshop we will start with preprocessed alignment files in the BAM formats and use the package ATACseqQC to perform some representative steps of post-alignment QC. 
+In this workshop we will start with preprocessed alignment files in the BAM formats and use the R/BioConductor package ATACseqQC to perform some representative steps of post-alignment QC. 
 
 ```{r setup}
 ## prepare the example BAM files for importing
 bamFile <- system.file("extdata", "GL1.bam",
-                        package = "ATACseqQC", mustWork = TRUE)
+                        package="ATACseqQC", mustWork=TRUE)
 bamFileLabels <- gsub(".bam", "", basename(bamFile))
 ```
 
