@@ -22,7 +22,6 @@ Authors@R:
             family = "Zhu",
             role = "aut",
             email = "Julie.Zhu@umassmed.edu"))
-           
 Description: ATAC-seq, an assay for Transposase-Accessible Chromatin
     using sequencing, is a rapid and sensitive method for chromatin
     accessibility analysis. Compared to other methods, such as 
@@ -39,7 +38,6 @@ Description: ATAC-seq, an assay for Transposase-Accessible Chromatin
 	will have the opportunity to analyze several excerpted datasets of 
 	different quality. Detailed notes and R code will be provided for
 	reproducibility and follow-up practicing. 
-
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
