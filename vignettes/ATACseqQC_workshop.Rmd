@@ -218,7 +218,7 @@ possibleTag <- combn(LETTERS, 2)
 possibleTag <- c(paste0(possibleTag[1, ], possibleTag[2, ]),
                  paste0(possibleTag[2, ], possibleTag[1, ]))
 bamTop100 <- scanBam(BamFile(bamFile, yieldSize = 100),
-                     param = ScanBamParam(tag=possibleTag))[[1]]$tag
+                     param = ScanBamParam(tag = possibleTag))[[1]]$tag
 tags <- names(bamTop100)[lengths(bamTop100)>0]
 
 ## files will be output into outPath
