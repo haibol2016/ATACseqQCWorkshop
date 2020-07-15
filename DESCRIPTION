@@ -55,7 +55,7 @@ Suggests: knitr, rmarkdown, pkgdown
 URL: https://haibol2016.github.io/ATACseqQCWorkshop/
 BugReports: https://github.com/haibol2016/ATACseqQCWorkshop/issues/new/choose
 VignetteBuilder: knitr
-DockerImage: nemat1976/ATACseqQCWorkshop:latest
+DockerImage: nemat1976/atacseqqcworkshop_2020:latest
 NeedsCompilation: no
 Packaged: 2020-07-15 15:34:29 UTC; Haibo
 Author: Haibo Liu [aut, cre],
