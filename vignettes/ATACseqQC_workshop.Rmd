@@ -2,7 +2,7 @@
 title: "Best practices on ATAC-seq QC and data analysis"
 author: Haibo Liu^[haibo.liu@umassmed.edu], Jianhong Ou^[Jianhong.ou@duke.edu], Rui Li^[Rui.Li@umassmed.edu], Kai Hu^[Kai.Hu@umassmed.edu], Lihua Julie Zhu^[Julie.Zhu@umassmed.edu]
 date: "`r format(Sys.time(), '%B %d, %Y')`"
-package: "`r packageVersion('Bioc2020_ATACseqQC_Workshop')`"
+package: "`r packageVersion('ATACseqQCWorkshop')`"
 bibliography:  "`r system.file('vignettes', 'ATAC-seq.bib', package = 'ATACseqQCWorkshop')`"
 csl:  "`r system.file('vignettes', 'nature.csl', package = 'ATACseqQCWorkshop')`"
 vignette:  >
