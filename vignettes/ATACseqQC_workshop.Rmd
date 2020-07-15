@@ -96,7 +96,7 @@ The following R/Bioconductor packages will be explicitly used:
 | Preprocessing of ATAC-seq data   | 5m   |
 | ATAC-seq data QC workflow        | 10m  |
 | Downstream ATAC-seq data analysis| 5m   |
-|Hands on session                  | 30m  |
+| Hands on session                 | 30m  |
 | Q & A                            | 5m   |
 
 
@@ -119,7 +119,7 @@ The following R/Bioconductor packages will be explicitly used:
 
 ## Workshop
 
-### Introduction to the ATAC-seq technology
+## Introduction to the ATAC-seq technology
 ***
 In eukaryotes, nucleosomes are basic DNA packaging units, each of which consists of a nucleosome core particle (NPC), linker DNA and linker histone H1. The NPC is composed *ca.* 147 bp of DNA wrapped around a histone core octamer, spaced from adjacent NPCs by a linker DNA of *ca.* 20-90 bp. Linker histones binds additional 20 bp of linker DNA at its entry/exit points to a NPC to stabilize nucleosome conformation and higher-order chromatin assembly. Nucleosomes can be hierarchically assembled into higher-order structures, eventually into chromatin or even chromosomes [@Pederson1986; @Bednar2017] (Figure 1, adapted from [Nature Education 1(1):26](https://www.nature.com/scitable/topicpage/dna-packaging-nucleosomes-and-chromatin-310)). In cells, different genomic regions are packaged with different accessibility to transcriptional machinery. Most notably, promoters and enhancers of actively transcribed genes are devoid of histone interaction, which are called "open" chromatin regions (Figure 2, adapted from Wang _et al_ [@Wang2012]). Thus, the interplay between histones and DNA serves as an important layer for controlling gene expression [@Gilbert2005; @Perino2016]. Therefore, it is important to determine the chromatin accessibility to better understand gene expression regulation in cells. 
 <br/>
@@ -142,10 +142,10 @@ knitr::include_graphics(system.file('vignettes', 'Figure 3. Chromatin accessibil
 knitr::include_graphics(system.file('vignettes', 'Figure 4. Library preparation.png', package = 'ATACseqQCWorkshop'))
 ```
 <br/>
-Since its first development, ATAC-seq has been used for quite a few purposes [@Buenrostro2013; @Buenrostro2015b]:  
+Since its first debut, ATAC-seq has been used for quite a few purposes [@Buenrostro2013; @Buenrostro2015b]:  
 
-* Infer nucleosome positioning  
 * Profile open chromatin regions  
+* Infer nucleosome positioning  
 * Identify transcription factor (TF) footprints  
 * Infer gene transcriptional regulation  
 * Determine cell state/identity in combination with single cell technologies  
@@ -159,13 +159,13 @@ knitr::include_graphics(system.file('vignettes', 'Figure 5. QC steps in ATAC-seq
 
 ## Preprocessing of ATAC-seq data
 ***
-Before using the ATACSeqQC package to assess the quality of ATAC-seq data, several preprocessing steps are needed as follows. These steps are usually performed in UNIX environments using open source software other than R. Detailed information about how to preprocess ATAC-seq data is provided in **"vignettes/Preprocessing.scripts.for.BioC2019.tutorial.txt"**.  
+Before using the ATACSeqQC package to assess the quality of ATAC-seq data, several preprocessing steps are needed as follows. These steps are usually performed in UNIX environments using open source software other than R. Detailed information about how to preprocess ATAC-seq data is provided in **"vignettes/Preprocessing.scripts.for.BioC2020.tutorial.txt"**.  
 
 * Check quality of raw reads using [FASTQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/).  
-* Generate an interactive summary report as a HTML file using MultiQC [@Ewels2016].  
+* Generate an interactive summary HTML report using MultiQC [@Ewels2016].  
 * Trim sequencing adapters using Trimmomatic [@Bolger2014] or [Trim Galore{!}](http://www.bioinformatics.babraham.ac.uk/projects/trim_galore/).  
 * Map the reads to the reference genome of choice using Bowtie/Bowtie2 [@Langmead2009; @Langmead2012] or BWA-mem [@Li2009a].  
-* Convert and sort alignment files using SAMtools [@Li2009b] or sambamba [@Tarasov2015].  
+* Manipulate alignment files using SAMtools [@Li2009b] or sambamba [@Tarasov2015] to get coordinate-sorted BAM files.  
 * Filter aligned reads  
   + Remove reads derived from organelles using SAMtools [@Li2009b]  
   + Remove duplicates using [picard tools](https://broadinstitute.github.io/picard/)  
@@ -173,12 +173,12 @@ Before using the ATACSeqQC package to assess the quality of ATAC-seq data, sever
 
 ## ATACseqQC workflow
 ***
-In this workshop we will start with preprocessed alignment files in the BAM formats and use the R/BioConductor package ATACseqQC to perform some representative steps of post-alignment QC. 
+In this workshop we will start with preprocessed alignment files in the BAM formats and use the package ATACseqQC to perform some representative steps of post-alignment QC. 
 
 ```{r setup}
 ## prepare the example BAM files for importing
 bamFile <- system.file("extdata", "GL1.bam",
-                        package="ATACseqQC", mustWork=TRUE)
+                        package = "ATACseqQC", mustWork = TRUE)
 bamFileLabels <- gsub(".bam", "", basename(bamFile))
 ```
 
@@ -258,7 +258,7 @@ dir(outPath)
 Previous studies have shown that transcriptionally active elements, such as promoters and enhancers, are defined by short regions of DNA that are devoid of direct histone interactions. These regions of "open" chromatin are usually occupied by transcription factors that facilitate gene transcription. By contrast, the promoters of genes that are not actively expressed in a given cell type exhibit much tighter association with histones, which prevents transcription factors from activating transcription and contributes to gene repression. Typical nucleosome density distributions around TSSs of actively transcribed genes and active enhancers are shown in Figure 9, adapted from Baldi [@Baldi2018]. The function `enrichedFragments` is for calculating signals around TSSs using the split BAM objects. And the function `featureAlignedHeatmap` is for generating a heatmap showing signal distribution around TSSs. The function `matplot` is for summarizing the signal distribution around TSSs using a density plot.  
 <br/>
 ```{r, out.width='80%', fig.align='center', fig.cap='Figure 9. Nucleosome density distribution around TSSs and TF binding sites.', echo = FALSE}
-knitr::include_graphics(system.file('vignettes', 'Figure 8. Nucleosome density distribution around TSS and TF binding site.png', package = 'ATACseqQCWorkshop'))
+knitr::include_graphics(system.file('vignettes', 'Figure 9. Nucleosome density distr. around TSS and TFBS.png', package = 'ATACseqQCWorkshop'))
 ```
 <br/>
 ```{r heatmap, fig.height=6, fig.width=4, fig.align='center', fig.cap = "Figure 10. Heatmap showing distributions of reads from different bins around TSSs."}
