@@ -1,6 +1,6 @@
 Package: ATACseqQCWorkshop
 Title: Best practices for ATAC-seq QC and data analysis
-Version: 0.1.2
+Version: 0.1.3
 Authors@R: 
     c(person(given = "Haibo",
            family = "Liu",
@@ -48,7 +48,7 @@ Imports: BiocGenerics, S4Vectors, ATACseqQC, BSgenome, Biostrings,
   ChIPpeakAnno, IRanges, GenomicRanges, GenomicAlignments, GenomeInfoDb, 
 	GenomicScores, graphics, grid, limma, Rsamtools (>= 1.31.2), randomForest,
 	rtracklayer, stats, motifStack, preseqR, utils, KernSmooth, edgeR, BiocStyle,
-	knitr, BSgenome.Hsapiens.UCSC.hg38,TxDb.Hsapiens.UCSC.hg38.knownGene, 
+	BSgenome.Hsapiens.UCSC.hg38,TxDb.Hsapiens.UCSC.hg38.knownGene, 
 	BSgenome.Hsapiens.UCSC.hg19, TxDb.Hsapiens.UCSC.hg19.knownGene, 
 	MotifDb,trackViewer,SRAdb
 Suggests: knitr, rmarkdown, pkgdown
