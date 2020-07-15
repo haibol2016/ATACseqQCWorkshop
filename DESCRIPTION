@@ -50,6 +50,7 @@ Imports: ATACseqQC, BSgenome, Biostrings, ChIPpeakAnno, IRanges,
     limma, Rsamtools (>= 1.31.2), randomForest, rtracklayer, stats,
     motifStack, preseqR, utils, KernSmooth, edgeR, BiocStyle, knitr,
     BSgenome.Hsapiens.UCSC.hg38, TxDb.Hsapiens.UCSC.hg38.knownGene,
+    BSgenome.Hsapiens.UCSC.hg19, TxDb.Hsapiens.UCSC.hg19.knownGene,
     MotifDb,trackViewer,SRAdb
 Suggests: 
     knitr,
