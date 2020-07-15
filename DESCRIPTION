@@ -37,20 +37,20 @@ Description: ATAC-seq, an assay for Transposase-Accessible Chromatin
     of a typical ATAC-seq dataset using the ATACseqQC package. Participants 
     will have the opportunity to analyze several excerpted datasets of 
     different quality. Detailed notes and R code will be provided for
-reproducibility and follow-up practicing. 
+	reproducibility and follow-up practicing.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.0
-Depends: R (>= 4.0), BiocGenerics, S4Vectors, ATACseqQC, BSgenome, Biostrings,
+Depends: R (>= 4.0), ATACseqQC, Biobase
+Suggests: knitr, rmarkdown, pkgdown, BiocGenerics, S4Vectors, BSgenome, Biostrings,
     ChIPpeakAnno, IRanges, GenomicRanges, GenomicAlignments, GenomeInfoDb, 
 	GenomicScores, graphics, grid, limma, Rsamtools (>= 1.31.2), randomForest,
     rtracklayer, stats, motifStack, preseqR, utils, KernSmooth, edgeR, BiocStyle,
-	knitr, BSgenome.Hsapiens.UCSC.hg38,TxDb.Hsapiens.UCSC.hg38.knownGene, 
+	BSgenome.Hsapiens.UCSC.hg38,TxDb.Hsapiens.UCSC.hg38.knownGene, 
 	BSgenome.Hsapiens.UCSC.hg19, TxDb.Hsapiens.UCSC.hg19.knownGene, 
 	MotifDb,trackViewer,SRAdb
-Suggests: knitr, rmarkdown, pkgdown
 URL: https://haibol2016.github.io/ATACseqQCWorkshop/
 BugReports: https://github.com/haibol2016/ATACseqQCWorkshop/issues/new/choose
 VignetteBuilder: knitr
