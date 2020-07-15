@@ -2,10 +2,11 @@
 
 ## Haibo Liu*, Jianhong Ou, Rui Li*, Kai Hu* and Lihua Julie Zhu*
 
-Haibo Liu, Department of Animal Science, Iowa State University, Ames, IA, 50010, USA. [haibol@iastate.edu](mailto:haibol@iastate.edu)  
-Jianhong Ou, Department of Cell Biology, Duke University Medical Center, Durham, NC, 27710, USA. [Rui.Li@umassmed.edu](mailto:Rui.Li@umassmed.edu)  
-Kai Hu, Department of Molecular, Cell and Cancer Biology, Worcester, MA01655, USA. [Kai.Hu@umassmed.edu](mailto:Kai.Hu@umassmed.edu)  
-Corresponding author: Lihua Julie Zhu, Department of Molecular, Cell and Cancer Biology, Program in Molecular Medicine, Program in Bioinformatics and Integrative Biology, Worcester, MA01655, USA. [Julie.Zhu@umassmed.edu](mailto:Julie.Zhu@umassmed.edu)  
+Haibo Liu, Department of Molecular, Cell and Cancer Biology, Worcester, MA01655, USA.  
+Jianhong Ou, Department of Cell Biology, Duke University Medical Center, Durham, NC, 27710, USA. 
+Rui Li, Department of Molecular, Cell and Cancer Biology, Worcester, MA01655, USA. 
+Kai Hu, Department of Molecular, Cell and Cancer Biology, Worcester, MA01655, USA.  
+Corresponding author: Lihua Julie Zhu, Department of Molecular, Cell and Cancer Biology, Program in Molecular Medicine, Program in Bioinformatics and Integrative Biology, Worcester, MA01655, USA. 
 *Denotes workshop presenter
 
 # Workshop Description
