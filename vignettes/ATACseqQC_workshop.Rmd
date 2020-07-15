@@ -22,8 +22,8 @@ output:
 suppressPackageStartupMessages({
   library(ATACseqQC)
   library(ChIPpeakAnno)
-  library(BSgenome.Hsapiens.UCSC.hg19)
-  library(TxDb.Hsapiens.UCSC.hg19.knownGene)
+  library(BSgenome.Hsapiens.UCSC.hg38)
+  library(TxDb.Hsapiens.UCSC.hg38.knownGene)
   library(MotifDb)
   library(SRAdb)
   library(GenomicAlignments)
