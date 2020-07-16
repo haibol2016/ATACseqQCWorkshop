@@ -6,7 +6,7 @@ package: "`r packageVersion('ATACseqQCWorkshop')`"
 bibliography:  "`r system.file('vignettes', 'ATAC-seq.bib', package = 'ATACseqQCWorkshop')`"
 csl:  "`r system.file('vignettes', 'nature.csl', package = 'ATACseqQCWorkshop')`"
 vignette:  >
-  %\VignetteIndexEntry{Bioc2020_ATACseqQC_Workshop}
+  %\VignetteIndexEntry{ATACseqQCWorkshop}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 output: 
