@@ -52,7 +52,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">ATACseqQCWorkshop</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -103,12 +103,14 @@
 <div id="best-practices-for-atac-seq-qc-and-data-analysis" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#best-practices-for-atac-seq-qc-and-data-analysis" class="anchor"></a>Best practices for ATAC-seq QC and data analysis</h1></div>
-<div id="haibo-liu-jianhong-ou-rui-li-kai-hu-and-lihua-julie-zhu" class="section level2">
+<div id="authors" class="section level2">
 <h2 class="hasAnchor">
-<a href="#haibo-liu-jianhong-ou-rui-li-kai-hu-and-lihua-julie-zhu" class="anchor"></a>Haibo Liu<em>, Jianhong Ou, Rui Li</em>, Kai Hu* and Lihua Julie Zhu*</h2>
-<p>Haibo Liu, Department of Molecular, Cell and Cancer Biology, Worcester, MA01655, USA.<br>
-Jianhong Ou, Department of Cell Biology, Duke University Medical Center, Durham, NC, 27710, USA. Rui Li, Department of Molecular, Cell and Cancer Biology, Worcester, MA01655, USA. Kai Hu, Department of Molecular, Cell and Cancer Biology, Worcester, MA01655, USA.<br>
-Corresponding author: Lihua Julie Zhu, Department of Molecular, Cell and Cancer Biology, Program in Molecular Medicine, Program in Bioinformatics and Integrative Biology, Worcester, MA01655, USA. *Denotes workshop presenter</p>
+<a href="#authors" class="anchor"></a>Authors</h2>
+<p>Haibo Liu*, Department of Molecular, Cell and Cancer Biology, Worcester, MA01655, USA.<br>
+Jianhong Ou*, Regeneration NEXT, Duke University School of Medicine, Duke University, Durham, NC, 27701, USA.<br>
+Kai Hu*, Department of Molecular, Cell and Cancer Biology, Worcester, MA01655, USA.<br>
+Corresponding author: Lihua Julie Zhu*, Department of Molecular, Cell and Cancer Biology, Program in Molecular Medicine, Program in Bioinformatics and Integrative Biology, Worcester, MA01655, USA.<br>
+*Denotes workshop presenters</p>
 </div>
 </div>
 <div id="workshop-description" class="section level1">
@@ -137,16 +139,10 @@ Corresponding author: Lihua Julie Zhu, Department of Molecular, Cell and Cancer 
 <a href="#workshop-participation" class="anchor"></a>Workshop Participation</h1>
 <p>Participants are expected to have basic knowledge about R and several R packages as described above in advance. To follow along the hands-on session, we recommend participants bring your own laptop. We will post a Docker image with required packages and data pre-installed for you to download and run the analysis within a Docker container. If you will use the Docker image, please get Docker installed (<a href="https://www.docker.com/get-started">https://www.docker.com/get-started</a>) in advance. For participants who wish to install all packages by themselves, you will also need to install the following computing tools.</p>
 <ul>
-<li>R (version &gt;3.5.0; <a href="https://cran.r-project.org/">https://cran.r-project.org/</a>)</li>
+<li>R (version &gt;= 4.0.0; <a href="https://cran.r-project.org/">https://cran.r-project.org/</a>)</li>
 <li>RStudio (<a href="https://www.rstudio.com/products/rstudio/download/#download" class="uri">https://www.rstudio.com/products/rstudio/download/#download</a>)</li>
 <li>The ATACseqQC package along its dependencies</li>
 <li>Integrated Genome Browser (IGV, <a href="http://software.broadinstitute.org/software/igv/download" class="uri">http://software.broadinstitute.org/software/igv/download</a>)</li>
-</ul>
-<p>For participants who wish to install all packages by themselves and use a Windows with OS lower than Win 10, which lacks a UNIX terminal, we recommend one of the following alternatives.</p>
-<ul>
-<li>Install Cygwin (<a href="https://www.cygwin.com/">https://www.cygwin.com/</a>)</li>
-<li>Install git Bash (<a href="https://gitforwindows.org/">https://gitforwindows.org/</a>)</li>
-<li>Install UnxUtils (<a href="https://sourceforge.net/projects/unxutils/">https://sourceforge.net/projects/unxutils/</a>)</li>
 </ul>
 </div>
 <div id="r--bioconductor-packages-used" class="section level1">
@@ -156,6 +152,8 @@ Corresponding author: Lihua Julie Zhu, Department of Molecular, Cell and Cancer 
 <ul>
 <li>library(ATACseqQC)</li>
 <li>library(ChIPpeakAnno)</li>
+<li>library(BSgenome.Hsapiens.UCSC.hg19)</li>
+<li>library(TxDb.Hsapiens.UCSC.hg19.knownGene)</li>
 <li>library(BSgenome.Hsapiens.UCSC.hg38)</li>
 <li>library(TxDb.Hsapiens.UCSC.hg38.knownGene)</li>
 <li>library(MotifDb)</li>
@@ -174,27 +172,27 @@ Corresponding author: Lihua Julie Zhu, Department of Molecular, Cell and Cancer 
 <tbody>
 <tr class="odd">
 <td>Introduction to ATAC-seq</td>
-<td>5 m</td>
+<td>5m</td>
 </tr>
 <tr class="even">
 <td>Preprocessing of ATAC-seq data</td>
-<td>5 m</td>
+<td>5m</td>
 </tr>
 <tr class="odd">
 <td>ATAC-seq data QC workflow</td>
-<td>10 m</td>
+<td>10m</td>
 </tr>
 <tr class="even">
-<td>Hands on experience with ATACseqQC and live demo</td>
-<td>30 m</td>
+<td>Downstream ATAC-seq data analysis</td>
+<td>5m</td>
 </tr>
 <tr class="odd">
-<td>Best Practice</td>
-<td>5 m</td>
+<td>Hands on session</td>
+<td>30m</td>
 </tr>
 <tr class="even">
-<td>Question &amp; Answer</td>
-<td>5 m</td>
+<td>Q &amp; A</td>
+<td>5m</td>
 </tr>
 </tbody>
 </table>
@@ -250,7 +248,6 @@ Corresponding author: Lihua Julie Zhu, Department of Molecular, Cell and Cancer 
 <ul class="list-unstyled">
 <li>Haibo Liu <br><small class="roles"> Author, maintainer </small>  </li>
 <li>Jianhong Ou <br><small class="roles"> Author </small>  </li>
-<li>Rui Li <br><small class="roles"> Author </small>  </li>
 <li>Kai Hu <br><small class="roles"> Author </small>  </li>
 <li>Liuhua Zhu <br><small class="roles"> Author </small>  </li>
 </ul>
@@ -261,7 +258,7 @@ Corresponding author: Lihua Julie Zhu, Department of Molecular, Cell and Cancer 
 
 
       <footer><div class="copyright">
-  <p>Developed by Haibo Liu, Jianhong Ou, Rui Li, Kai Hu, Liuhua Zhu.</p>
+  <p>Developed by Haibo Liu, Jianhong Ou, Kai Hu, Liuhua Zhu.</p>
 </div>
 
 <div class="pkgdown">

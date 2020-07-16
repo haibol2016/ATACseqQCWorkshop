@@ -37,7 +37,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ATACseqQCWorkshop</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -86,7 +86,7 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Best practices on ATAC-seq QC and data analysis</h1>
-                        <h4 class="author">Haibo Liu<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>, Jianhong Ou<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>, Rui Li<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>, Kai Hu<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>, Lihua Julie Zhu<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>
+                        <h4 class="author">Haibo Liu<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>, Jianhong Ou<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>, Kai Hu<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>, Lihua Julie Zhu<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>
 </h4>
             
             <h4 class="date">July 16, 2020</h4>
@@ -98,10 +98,6 @@
 
     
     
-<div id="best-practices-on-atac-seq-qc-and-data-analysis" class="section level1">
-<h1 class="hasAnchor">
-<a href="#best-practices-on-atac-seq-qc-and-data-analysis" class="anchor"></a>Best practices on ATAC-seq QC and data analysis</h1>
-<p>Authors: Haibo Liu<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a>, Jianhong Ou<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a>, Rui Liu<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a>, Kai Hu<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a>, Lihua Julie<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a>. <br> Last modified: July 13, 2018.</p>
 <div id="overview" class="section level2">
 <h2 class="hasAnchor">
 <a href="#overview" class="anchor"></a>Overview</h2>
@@ -215,29 +211,28 @@
 <div id="workshop" class="section level2">
 <h2 class="hasAnchor">
 <a href="#workshop" class="anchor"></a>Workshop</h2>
-</div>
-<div id="introduction-to-the-atac-seq-technology" class="section level2">
-<h2 class="hasAnchor">
-<a href="#introduction-to-the-atac-seq-technology" class="anchor"></a>Introduction to the ATAC-seq technology</h2>
+<div id="introduction-to-the-atac-seq-technology" class="section level3">
+<h3 class="hasAnchor">
+<a href="#introduction-to-the-atac-seq-technology" class="anchor"></a>Introduction to the ATAC-seq technology</h3>
 <hr>
 In eukaryotes, nucleosomes are basic DNA packaging units, each of which consists of a nucleosome core particle (NPC), linker DNA and linker histone H1. The NPC is composed <em>ca.</em> 147 bp of DNA wrapped around a histone core octamer, spaced from adjacent NPCs by a linker DNA of <em>ca.</em> 20-90 bp. Linker histones binds additional 20 bp of linker DNA at its entry/exit points to a NPC to stabilize nucleosome conformation and higher-order chromatin assembly. Nucleosomes can be hierarchically assembled into higher-order structures, eventually into chromatin or even chromosomes<span class="citation"><sup>1,2</sup></span> (Figure 1, adapted from <a href="https://www.nature.com/scitable/topicpage/dna-packaging-nucleosomes-and-chromatin-310">Nature Education 1(1):26</a>). In cells, different genomic regions are packaged with different accessibility to transcriptional machinery. Most notably, promoters and enhancers of actively transcribed genes are devoid of histone interaction, which are called “open” chromatin regions (Figure 2, adapted from Wang <em>et al</em><span class="citation"><sup>3</sup></span>). Thus, the interplay between histones and DNA serves as an important layer for controlling gene expression.<span class="citation"><sup>4,5</sup></span> Therefore, it is important to determine the chromatin accessibility to better understand gene expression regulation in cells. <br><div class="figure" style="text-align: center">
-<img src="../../../../tmp/Rtmp6h1FN8/temp_libpath100b7611dc588/ATACseqQCWorkshop/vignettes/Fig.1.png" alt="Figure 1. DNA packaging in eukaryotic cells." width="80%" height="80%"><p class="caption">
+<img src="ATACseqQC_workshop_files/figure-html/unnamed-chunk-1-1.png" alt="Figure 1. DNA packaging in eukaryotic cells." width="80%" height="80%"><p class="caption">
 Figure 1. DNA packaging in eukaryotic cells.
 </p>
 </div>
 <br><div class="figure" style="text-align: center">
-<img src="../../../../tmp/Rtmp6h1FN8/temp_libpath100b7611dc588/ATACseqQCWorkshop/vignettes/Fig.2.png" alt="Figure 2. Open and closed chromatin." width="80%"><p class="caption">
+<img src="ATACseqQC_workshop_files/figure-html/unnamed-chunk-2-1.png" alt="Figure 2. Open and closed chromatin." width="80%"><p class="caption">
 Figure 2. Open and closed chromatin.
 </p>
 </div>
 <br> In recent years, a few methods have been developed to profile genome-wide chromatin accessibility (Figure 3, adapted from Tsompana and Buck<span class="citation"><sup>6</sup></span>) For review, see Tsompana and Buck.<span class="citation"><sup>6</sup></span> Among these methods, ATAC-seq (an assay for Transposase-Accessible Chromatin using sequencing) is a rapid and sensitive method for profiling chromatin accessibility.<span class="citation"><sup>7</sup></span> Compared to other methods, such as MNase-seq, FAIRE-seq and DNase-seq, ATAC-seq allows comparable or even higher signal-to-noise ratio, but requires much less amount of the biological materials and time to process. Briefly, hyperactive Tn5 transposases preloaded with adapters are first added to simultaneously tag and fragment open chromatin in nuclei (500~50,000) isolated from fresh or cryopreserved tissues/cells at nearly native states, a process called tagmentation. The tagged DNA fragments are then amplified and simultaneously sequencing adapters and indices compatible to Illumina sequencing platforms are added by using PCR with optimized cycles (Figure 4, adapted from Buenrostro <em>et al</em><span class="citation"><sup>7</sup></span>).<br><br><div class="figure" style="text-align: center">
-<img src="../../../../tmp/Rtmp6h1FN8/temp_libpath100b7611dc588/ATACseqQCWorkshop/vignettes/Fig.3.png" alt="Figure 3. Signal features generated by different methods for profiling chromatin accessibility." width="80%"><p class="caption">
+<img src="ATACseqQC_workshop_files/figure-html/unnamed-chunk-3-1.png" alt="Figure 3. Signal features generated by different methods for profiling chromatin accessibility." width="80%"><p class="caption">
 Figure 3. Signal features generated by different methods for profiling chromatin accessibility.
 </p>
 </div>
 <p><br></p>
 <div class="figure" style="text-align: center">
-<img src="../../../../tmp/Rtmp6h1FN8/temp_libpath100b7611dc588/ATACseqQCWorkshop/vignettes/Fig.4.png" alt="Figure 4. Schematic showing of ATAC-seq library preparation." width="80%"><p class="caption">
+<img src="ATACseqQC_workshop_files/figure-html/unnamed-chunk-4-1.png" alt="Figure 4. Schematic showing of ATAC-seq library preparation." width="80%" height="80%"><p class="caption">
 Figure 4. Schematic showing of ATAC-seq library preparation.
 </p>
 </div>
@@ -254,15 +249,15 @@ Figure 4. Schematic showing of ATAC-seq library preparation.
 <li>Determine cell state/identity in combination with single cell technologies</li>
 </ul>
 The ATAC-seq wet-lab protocol is relatively simple and easy. However, to ensure a successful ATAC-seq experiment, step-by-step quality assurance processes, including both wet lab quality control and <em>in silico</em> quality assessment, are essential (Figure 5, modified from Milani <em>et al</em><span class="citation"><sup>9</sup></span>). In this workshop we will mainly cover the post-alignment QC steps using our ATACseqQC package.<span class="citation"><sup>10</sup></span><br><br><div class="figure" style="text-align: center">
-<img src="../../../../tmp/Rtmp6h1FN8/temp_libpath100b7611dc588/ATACseqQCWorkshop/vignettes/Fig.5.png" alt="Figure 5. Quality control steps in ATAC-seq assays." width="80%"><p class="caption">
+<img src="ATACseqQC_workshop_files/figure-html/unnamed-chunk-5-1.png" alt="Figure 5. Quality control steps in ATAC-seq assays." width="80%"><p class="caption">
 Figure 5. Quality control steps in ATAC-seq assays.
 </p>
 </div>
 <p><br></p>
 </div>
-<div id="preprocessing-of-atac-seq-data" class="section level2">
-<h2 class="hasAnchor">
-<a href="#preprocessing-of-atac-seq-data" class="anchor"></a>Preprocessing of ATAC-seq data</h2>
+<div id="preprocessing-of-atac-seq-data" class="section level3">
+<h3 class="hasAnchor">
+<a href="#preprocessing-of-atac-seq-data" class="anchor"></a>Preprocessing of ATAC-seq data</h3>
 <hr>
 <p>Before using the ATACSeqQC package to assess the quality of ATAC-seq data, several preprocessing steps are needed as follows. These steps are usually performed in UNIX environments using open source software other than R. Detailed information about how to preprocess ATAC-seq data is provided in <strong>“vignettes/Preprocessing.scripts.for.BioC2020.tutorial.txt”</strong>.</p>
 <ul>
@@ -287,15 +282,16 @@ Figure 5. Quality control steps in ATAC-seq assays.
 </li>
 </ul>
 </div>
-<div id="atacseqqc-workflow" class="section level2">
-<h2 class="hasAnchor">
-<a href="#atacseqqc-workflow" class="anchor"></a>ATACseqQC workflow</h2>
+<div id="atacseqqc-workflow" class="section level3">
+<h3 class="hasAnchor">
+<a href="#atacseqqc-workflow" class="anchor"></a>ATACseqQC workflow</h3>
 <hr>
 <p>In this workshop we will start with preprocessed alignment files in the BAM formats and use the R/BioConductor package ATACseqQC to perform some representative steps of post-alignment QC.</p>
 <div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="co">## prepare the example BAM files for importing</span>
 <span class="no">bamFile</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata"</span>, <span class="st">"GL1.bam"</span>,
-                        <span class="kw">package</span><span class="kw">=</span><span class="st">"ATACseqQC"</span>, <span class="kw">mustWork</span><span class="kw">=</span><span class="fl">TRUE</span>)
+                        <span class="kw">package</span> <span class="kw">=</span> <span class="st">"ATACseqQC"</span>, <span class="kw">mustWork</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
 <span class="no">bamFileLabels</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span>(<span class="st">".bam"</span>, <span class="st">""</span>, <span class="fu"><a href="https://rdrr.io/r/base/basename.html">basename</a></span>(<span class="no">bamFile</span>))</pre></body></html></div>
+</div>
 <div id="assessing-atac-seq-read-mapping-status" class="section level3">
 <h3 class="hasAnchor">
 <a href="#assessing-atac-seq-read-mapping-status" class="anchor"></a>Assessing ATAC-seq read mapping status</h3>
@@ -381,18 +377,17 @@ Figure 5. Quality control steps in ATAC-seq assays.
 ## 23     chrX 155270560      0        0
 ## 24     chrY  59373566      0        0
 ## 25     chrM     16571      0        0</code></pre>
-</div>
-<div id="assessing-insert-size-distribution" class="section level3">
-<h3 class="hasAnchor">
-<a href="#assessing-insert-size-distribution" class="anchor"></a>Assessing insert size distribution</h3>
+<div id="assessing-insert-size-distribution" class="section level4">
+<h4 class="hasAnchor">
+<a href="#assessing-insert-size-distribution" class="anchor"></a>Assessing insert size distribution</h4>
 <hr>
 It is known that in ATAC-seq experiments, tagmentation of Tn5 transposases produce signature size pattern of fragments derived from nucleosome-free regions, mononucleosome, dinucleosome, trinucleosome and longer oligonucleosome from other open chromatin regions (Figure 6, adapted from Li <em>et al</em><span class="citation"><sup>18</sup></span>) . A typical distribution of insert fragment size is shown in (Figure 7, adapted from Buenrostro <em>et al</em>.<span class="citation"><sup>19</sup></span> The function <code>fragSizeDist</code> in the ATACseqQC package can be used to generate such a distribution plot. Please note the pre-filtered BAM files need to be used to get an unbiased distribution of insert fragment size in the ATAC-seq library.<br><br><div class="figure" style="text-align: center">
-<img src="../../../../tmp/Rtmp6h1FN8/temp_libpath100b7611dc588/ATACseqQCWorkshop/vignettes/Fig.6.png" alt="Figure 6. Fragments generated by Tn5 tagementation in ATAC-seq." width="80%"><p class="caption">
+<img src="ATACseqQC_workshop_files/figure-html/unnamed-chunk-6-1.png" alt="Figure 6. Fragments generated by Tn5 tagementation in ATAC-seq." width="80%"><p class="caption">
 Figure 6. Fragments generated by Tn5 tagementation in ATAC-seq.
 </p>
 </div>
 <br><div class="figure" style="text-align: center">
-<img src="../../../../tmp/Rtmp6h1FN8/temp_libpath100b7611dc588/ATACseqQCWorkshop/vignettes/Fig.7.png" alt="Figure 7. Library insert fragment size distribution in a typical ATAC-seq assay." width="80%"><p class="caption">
+<img src="ATACseqQC_workshop_files/figure-html/unnamed-chunk-7-1.png" alt="Figure 7. Library insert fragment size distribution in a typical ATAC-seq assay." width="80%"><p class="caption">
 Figure 7. Library insert fragment size distribution in a typical ATAC-seq assay.
 </p>
 </div>
@@ -405,9 +400,9 @@ Figure 8. Size distribution of ATAC-seq library insert fragments.
 </div>
 <p><br></p>
 </div>
-<div id="shifting-aligned-reads" class="section level3">
-<h3 class="hasAnchor">
-<a href="#shifting-aligned-reads" class="anchor"></a>Shifting aligned reads</h3>
+<div id="shifting-aligned-reads" class="section level4">
+<h4 class="hasAnchor">
+<a href="#shifting-aligned-reads" class="anchor"></a>Shifting aligned reads</h4>
 <hr>
 <p>Tagmentation of Tn5 transposases produce 5’ overhang of 9 base long, the coordinates of reads mapping to the positive and negative strands need to be shifted by + 4 and - 5, respectively.<span class="citation"><sup>7,20</sup></span> The functions <code>shiftGAlignmentsList</code> and <code>shiftReads</code> in the ATACseqQC package can be used for this purpose.</p>
 <div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="co">## bamfile tags to be read in</span>
@@ -433,9 +428,9 @@ Figure 8. Size distribution of ATAC-seq library insert fragments.
 <span class="no">shiftedBamFile</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="no">outPath</span>, <span class="st">"shifted.bam"</span>)
 <span class="no">gal1</span> <span class="kw">&lt;-</span> <span class="fu">shiftGAlignmentsList</span>(<span class="no">gal</span>, <span class="kw">outbam</span><span class="kw">=</span><span class="no">shiftedBamFile</span>)</pre></body></html></div>
 </div>
-<div id="splitting-bam-files" class="section level3">
-<h3 class="hasAnchor">
-<a href="#splitting-bam-files" class="anchor"></a>Splitting BAM files</h3>
+<div id="splitting-bam-files" class="section level4">
+<h4 class="hasAnchor">
+<a href="#splitting-bam-files" class="anchor"></a>Splitting BAM files</h4>
 <hr>
 <p>The shifted reads need to be split into different bins, namely bins for reads from nucleosome-free regions, and regions occupied by mononucleosome, dinucleosomes, and trinucleosomes. Shifted reads that do not fit into any of the three bins could be discarded. The function <code>splitGAlignmentsByCut</code> has been implemented to meet this demand.</p>
 <div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="co">## run program for chromosome 1 only</span>
@@ -453,12 +448,12 @@ Figure 8. Size distribution of ATAC-seq library insert fragments.
 ## [13] "others.bam"             "others.bam.bai"         "shifted.bam"           
 ## [16] "shifted.bam.bai"        "trinucleosome.bam"      "trinucleosome.bam.bai"</code></pre>
 </div>
-<div id="plotting-global-signal-distribution-around-transcriptional-start-sites-tsss" class="section level3">
-<h3 class="hasAnchor">
-<a href="#plotting-global-signal-distribution-around-transcriptional-start-sites-tsss" class="anchor"></a>Plotting global signal distribution around transcriptional start sites (TSSs)</h3>
+<div id="plotting-global-signal-distribution-around-transcriptional-start-sites-tsss" class="section level4">
+<h4 class="hasAnchor">
+<a href="#plotting-global-signal-distribution-around-transcriptional-start-sites-tsss" class="anchor"></a>Plotting global signal distribution around transcriptional start sites (TSSs)</h4>
 <hr>
 Previous studies have shown that transcriptionally active elements, such as promoters and enhancers, are defined by short regions of DNA that are devoid of direct histone interactions. These regions of “open” chromatin are usually occupied by transcription factors that facilitate gene transcription. By contrast, the promoters of genes that are not actively expressed in a given cell type exhibit much tighter association with histones, which prevents transcription factors from activating transcription and contributes to gene repression. Typical nucleosome density distributions around TSSs of actively transcribed genes and active enhancers are shown in Figure 9, adapted from Baldi.<span class="citation"><sup>21</sup></span> The function <code>enrichedFragments</code> is for calculating signals around TSSs using the split BAM objects. And the function <code>featureAlignedHeatmap</code> is for generating a heatmap showing signal distribution around TSSs. The function <code>matplot</code> is for summarizing the signal distribution around TSSs using a density plot.<br><br><div class="figure" style="text-align: center">
-<img src="../../../../tmp/Rtmp6h1FN8/temp_libpath100b7611dc588/ATACseqQCWorkshop/vignettes/Fig.9.png" alt="Figure 9. Nucleosome density distribution around TSSs and TF binding sites." width="80%"><p class="caption">
+<img src="ATACseqQC_workshop_files/figure-html/unnamed-chunk-8-1.png" alt="Figure 9. Nucleosome density distribution around TSSs and TF binding sites." width="80%"><p class="caption">
 Figure 9. Nucleosome density distribution around TSSs and TF binding sites.
 </p>
 </div>
@@ -504,8 +499,8 @@ Figure 10. Heatmap showing distributions of reads from different bins around TSS
 <div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="co">## get signals normalized for nucleosome-free and nucleosome-bound regions.</span>
 <span class="no">out</span> <span class="kw">&lt;-</span> <span class="fu">featureAlignedDistribution</span>(<span class="no">sigs</span>,
                                   <span class="fu">reCenterPeaks</span>(<span class="no">TSS</span>, <span class="kw">width</span><span class="kw">=</span><span class="no">ups</span>+<span class="no">dws</span>),
-                                  <span class="kw">zeroAt</span><span class="kw">=</span><span class="fl">.5</span>, <span class="kw">n.tile</span><span class="kw">=</span><span class="no">NTILE</span>, <span class="kw">type</span><span class="kw">=</span><span class="st">"l"</span>,
-                                  <span class="kw">ylab</span><span class="kw">=</span><span class="st">"Averaged coverage"</span>)</pre></body></html></div>
+                                  <span class="kw">zeroAt</span> <span class="kw">=</span> <span class="fl">.5</span>, <span class="kw">n.tile</span> <span class="kw">=</span> <span class="no">NTILE</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"l"</span>,
+                                  <span class="kw">ylab</span> <span class="kw">=</span> <span class="st">"Averaged coverage"</span>)</pre></body></html></div>
 <div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="co">## rescale the nucleosome-free and nucleosome signals to 0~1</span>
 <span class="no">range01</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">x</span>){(<span class="no">x</span>-<span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span>(<span class="no">x</span>))/(<span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span>(<span class="no">x</span>)-<span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span>(<span class="no">x</span>))}
 <span class="no">out</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span>(<span class="no">out</span>, <span class="fl">2</span>, <span class="no">range01</span>)
@@ -521,9 +516,9 @@ Figure 11. Density plot showing distributions of reads from different bins aroun
 </p>
 </div>
 </div>
-<div id="streamlining-igv-snapshots-showing-signal-distribution-along-housekeeping-genes" class="section level3">
-<h3 class="hasAnchor">
-<a href="#streamlining-igv-snapshots-showing-signal-distribution-along-housekeeping-genes" class="anchor"></a>Streamlining IGV snapshots showing signal distribution along housekeeping genes</h3>
+<div id="streamlining-igv-snapshots-showing-signal-distribution-along-housekeeping-genes" class="section level4">
+<h4 class="hasAnchor">
+<a href="#streamlining-igv-snapshots-showing-signal-distribution-along-housekeeping-genes" class="anchor"></a>Streamlining IGV snapshots showing signal distribution along housekeeping genes</h4>
 <hr>
 <p>Housekeeping genes are relatively stably expressed across tissues. Signal enrichment is expected in the regulatory regions of housekeeping genes in successful ATAC-seq experiments, which provides valuable insights into the quality of the ATAC-seq library. We have implemented the function <code>IGVSnapshot</code> is to facilitate automatic visualization of signal distribution along any genomic region of interest. CAUTION: no white spaces are allowed in the full path to BAM files.</p>
 <div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/source.html">source</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata"</span>, <span class="st">"IGVSnapshot.R"</span>, <span class="kw">package</span> <span class="kw">=</span> <span class="st">"ATACseqQC"</span>))
@@ -531,9 +526,9 @@ Figure 11. Density plot showing distributions of reads from different bins aroun
             <span class="kw">bamFileFullPathOrURLs</span> <span class="kw">=</span> <span class="no">bamFile</span>,
             <span class="kw">geneNames</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"PQLC2"</span>, <span class="st">"MINOS1"</span>))</pre></body></html></div>
 </div>
-<div id="assessing-footprints-of-dna-binding-factors" class="section level3">
-<h3 class="hasAnchor">
-<a href="#assessing-footprints-of-dna-binding-factors" class="anchor"></a>Assessing footprints of DNA-binding factors</h3>
+<div id="assessing-footprints-of-dna-binding-factors" class="section level4">
+<h4 class="hasAnchor">
+<a href="#assessing-footprints-of-dna-binding-factors" class="anchor"></a>Assessing footprints of DNA-binding factors</h4>
 <hr>
 <p>Genomic regions bound by transcription factors/insulators are locally protected from Tn5 transposase tagmentation and the pattern of Tn5 transposase cutting sites around TF-binding sites can be used to infer the footprints of TFs. The function <code>factorFootprints</code> is for plotting footprints of DNA-binding factors.</p>
 <div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="co">## foot prints</span>
@@ -560,9 +555,9 @@ Figure 12. Aggregated CTCF footprints.
 </p>
 </div>
 </div>
-<div id="assessing-sequencing-depth-and-library-complexity" class="section level3">
-<h3 class="hasAnchor">
-<a href="#assessing-sequencing-depth-and-library-complexity" class="anchor"></a>Assessing sequencing depth and library complexity</h3>
+<div id="assessing-sequencing-depth-and-library-complexity" class="section level4">
+<h4 class="hasAnchor">
+<a href="#assessing-sequencing-depth-and-library-complexity" class="anchor"></a>Assessing sequencing depth and library complexity</h4>
 <hr>
 <p>Although all the above assessments can be used to determine the quality of the available ATAC-seq data, they can’t tell whether the sequencing depth is saturated or not, nor whether the library is complex enough for deeper sequencing. The functions <code>saturationPlot</code> and <code>estimateLibComplexity</code> are for these purposes. CAUTION: only BAM files without removing duplicates are informative for estimating library complexity.</p>
 <div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="fu">estimateLibComplexity</span>(<span class="fu">readsDupFreq</span>(<span class="no">bamFile</span>))</pre></body></html></div>
@@ -572,9 +567,9 @@ Figure 13. Scatter plot showing estmated ATAC-seq library complexity.
 </p>
 </div>
 </div>
-<div id="assessing-similarity-of-replicates" class="section level3">
-<h3 class="hasAnchor">
-<a href="#assessing-similarity-of-replicates" class="anchor"></a>Assessing similarity of replicates</h3>
+<div id="assessing-similarity-of-replicates" class="section level4">
+<h4 class="hasAnchor">
+<a href="#assessing-similarity-of-replicates" class="anchor"></a>Assessing similarity of replicates</h4>
 <hr>
 <p>If multiple ATAC-seq assays have been performed, signal correlation among replicates can be checked using the function <code>plotCorrelation</code>.</p>
 <div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="no">path</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata"</span>, <span class="kw">package</span><span class="kw">=</span><span class="st">"ATACseqQC"</span>, <span class="kw">mustWork</span><span class="kw">=</span><span class="fl">TRUE</span>)
@@ -593,9 +588,9 @@ Figure 14. Heatmap showing replicate similarity.
 </div>
 <p><br></p>
 </div>
-<div id="assessing-other-qc-metrics" class="section level3">
-<h3 class="hasAnchor">
-<a href="#assessing-other-qc-metrics" class="anchor"></a>Assessing other QC metrics</h3>
+<div id="assessing-other-qc-metrics" class="section level4">
+<h4 class="hasAnchor">
+<a href="#assessing-other-qc-metrics" class="anchor"></a>Assessing other QC metrics</h4>
 <hr>
 <p>A few new QC functions have been added to the ATACseqQC package.</p>
 <ul>
@@ -616,9 +611,9 @@ Figure 14. Heatmap showing replicate similarity.
 </ul>
 </div>
 </div>
-<div id="exercises-and-live-demonstration" class="section level2">
-<h2 class="hasAnchor">
-<a href="#exercises-and-live-demonstration" class="anchor"></a>Exercises and live demonstration</h2>
+<div id="exercises-and-live-demonstration" class="section level3">
+<h3 class="hasAnchor">
+<a href="#exercises-and-live-demonstration" class="anchor"></a>Exercises and live demonstration</h3>
 <hr>
 <p>ATAC-seq datasets from two different studies were downloaded from the ENA Sequence Read Archive (SRA). SRR891269 and SRR891270 are ATAC-seq data for two biological replicates of 50K cells from EBV-transformed lymphoblastoid cell line GM12878.<span class="citation"><sup>7</sup></span> SRR5800801 and SRR5800802 are ATAC-seq data for two replicates of 75k cells from a breast cancer cell line T47 (Valles and Izquierd-Bouldstridge, unpublished). The first dataset is of good quality, while the second is from failed ATAC-seq assays. After raw read quality QC using FASTQC, reads were aligned to the human reference genome <strong>hg38</strong> from the <a href="http://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz">UCSC Genome Browser</a> after removing the alternative sequences (chr_alt chromosomes). The resulting BAM files were further preprocessed as above and are available from <a href="https://drive.google.com/drive/folders/1zGvqnXAIWelgVk9Gw1Kx5ySlCg0iz7AJ?usp=sharing">the Google Drive</a>.</p>
 <p>Two subsets of filtered BAM files from SRR891270, containing alignments on <strong>chr20</strong> only, are provided in this workshop package for quick in-class practice.</p>
@@ -652,9 +647,9 @@ To get the location of the BAM file for Tasks 1 and 2, , please copy and run the
 <p>Download data to a location without white spaces in the full path from the folder <strong>subsetted_filtered_BAM</strong> in the Google Drive, by following <strong><a href="https://drive.google.com/drive/folders/1zGvqnXAIWelgVk9Gw1Kx5ySlCg0iz7AJ?usp=sharing">the shared link</a></strong>.</p>
 <div class="sourceCode" id="cb22"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/source.html">source</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata"</span>, <span class="st">"IGVSnapshot.R"</span>, <span class="kw">package</span> <span class="kw">=</span> <span class="st">"ATACseqQC"</span>))</pre></body></html></div>
 </div>
-<div id="best-practices-of-atac-seq-and-atac-seq-data-qc" class="section level2">
-<h2 class="hasAnchor">
-<a href="#best-practices-of-atac-seq-and-atac-seq-data-qc" class="anchor"></a>Best practices of ATAC-seq and ATAC-seq data QC</h2>
+<div id="best-practices-of-atac-seq-and-atac-seq-data-qc" class="section level3">
+<h3 class="hasAnchor">
+<a href="#best-practices-of-atac-seq-and-atac-seq-data-qc" class="anchor"></a>Best practices of ATAC-seq and ATAC-seq data QC</h3>
 <hr>
 <p>A few best practices for ATAC-seq assays are suggested as follows:</p>
 <ul>
@@ -668,22 +663,21 @@ To get the location of the BAM file for Tasks 1 and 2, , please copy and run the
 </li>
 <li>Optimize the number of PCR cycles<span class="citation"><sup>19</sup></span><br>
 </li>
-<li>Perform Paired-end (PE) sequencing, e.g., 2 x 50bp<br>
+<li>Perform Paired-end (PE) sequencing, e.g., 2 x 50 to 100 bp<br>
 </li>
-<li>Sequence &gt; 50M PE reads (~200 M for footprint discovery)<span class="citation"><sup>7</sup></span>
+<li>Sequence &gt; 50 M PE reads (~200 M for footprinting analysis)<span class="citation"><sup>7</sup></span>
 </li>
 </ul>
 <p>A few best practices for ATAC-seq data analysis are suggested as follows:</p>
 <ul>
-<li>Perform raw read QC using <a href="https://www.bioinformatics.babraham.ac.uk/projects/fastqc/">FASTQC</a> before alignment<br>
-</li>
+<li>Perform raw read QC using <a href="https://www.bioinformatics.babraham.ac.uk/projects/fastqc/">FASTQC</a> before alignment</li>
 <li>Perform post-alignment QC using ATACSeqQC<span class="citation"><sup>10</sup></span><br>
 </li>
-<li>Perform peak calling using a peak caller, such as <a href="https://github.com/taoliu/MACS">MACS2</a><span class="citation"><sup>26</sup></span> with non-broadPeak mode or HMMRATAC.<span class="citation"><sup>27</sup></span>
+<li>Perform peak calling using a peak caller, such as <a href="https://github.com/taoliu/MACS">MACS2</a><span class="citation"><sup>26</sup></span> in narrowdPeak mode with option settings: “shift -s and extend 2s”, <a href="https://github.com/jsh58/Genrich">Genrich</a>, or HMMRATAC.<span class="citation"><sup>27</sup></span>
 </li>
 <li>Perform post-peak calling QC
 <ul>
-<li>Annotate peaks to nearest genes and generate peak distribution among genomic features using ChIPpeakAnno<span class="citation"><sup>28</sup></span>
+<li>Annotate peaks and generate peak distribution among genomic features using ChIPpeakAnno<span class="citation"><sup>28</sup></span><br>
 </li>
 <li>Obtain functions of genes associated to peaks using the Genomic Regions Enrichment of Annotations Tool (GREAT)<span class="citation"><sup>29</sup></span>
 </li>
@@ -691,9 +685,9 @@ To get the location of the BAM file for Tasks 1 and 2, , please copy and run the
 </li>
 </ul>
 </div>
-<div id="session-information" class="section level2">
-<h2 class="hasAnchor">
-<a href="#session-information" class="anchor"></a>Session information</h2>
+<div id="session-information" class="section level3">
+<h3 class="hasAnchor">
+<a href="#session-information" class="anchor"></a>Session information</h3>
 <hr>
 <pre><code>## R version 4.0.0 (2020-04-24)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
@@ -715,33 +709,35 @@ To get the location of the BAM file for Tasks 1 and 2, , please copy and run the
 ## [8] methods   base     
 ## 
 ## other attached packages:
-##  [1] GenomicAlignments_1.25.3               
-##  [2] Rsamtools_2.5.3                        
-##  [3] SummarizedExperiment_1.19.6            
-##  [4] DelayedArray_0.15.7                    
-##  [5] matrixStats_0.56.0                     
-##  [6] Matrix_1.2-18                          
-##  [7] SRAdb_1.51.0                           
-##  [8] RCurl_1.98-1.2                         
-##  [9] graph_1.67.1                           
-## [10] RSQLite_2.2.0                          
-## [11] MotifDb_1.31.0                         
-## [12] TxDb.Hsapiens.UCSC.hg19.knownGene_3.2.2
-## [13] GenomicFeatures_1.41.2                 
-## [14] AnnotationDbi_1.51.1                   
-## [15] Biobase_2.49.0                         
-## [16] BSgenome.Hsapiens.UCSC.hg19_1.4.3      
-## [17] BSgenome_1.57.4                        
-## [18] rtracklayer_1.49.3                     
-## [19] Biostrings_2.57.2                      
-## [20] XVector_0.29.3                         
-## [21] ChIPpeakAnno_3.23.3                    
-## [22] GenomicRanges_1.41.5                   
-## [23] GenomeInfoDb_1.25.8                    
-## [24] IRanges_2.23.10                        
-## [25] ATACseqQC_1.13.3                       
-## [26] S4Vectors_0.27.12                      
-## [27] BiocGenerics_0.35.4                    
+##  [1] jpeg_0.1-8.1                           
+##  [2] png_0.1-7                              
+##  [3] GenomicAlignments_1.25.3               
+##  [4] Rsamtools_2.5.3                        
+##  [5] SummarizedExperiment_1.19.6            
+##  [6] DelayedArray_0.15.7                    
+##  [7] matrixStats_0.56.0                     
+##  [8] Matrix_1.2-18                          
+##  [9] SRAdb_1.51.0                           
+## [10] RCurl_1.98-1.2                         
+## [11] graph_1.67.1                           
+## [12] RSQLite_2.2.0                          
+## [13] MotifDb_1.31.0                         
+## [14] TxDb.Hsapiens.UCSC.hg19.knownGene_3.2.2
+## [15] GenomicFeatures_1.41.2                 
+## [16] AnnotationDbi_1.51.1                   
+## [17] Biobase_2.49.0                         
+## [18] BSgenome.Hsapiens.UCSC.hg19_1.4.3      
+## [19] BSgenome_1.57.4                        
+## [20] rtracklayer_1.49.3                     
+## [21] Biostrings_2.57.2                      
+## [22] XVector_0.29.3                         
+## [23] ChIPpeakAnno_3.23.3                    
+## [24] GenomicRanges_1.41.5                   
+## [25] GenomeInfoDb_1.25.8                    
+## [26] IRanges_2.23.10                        
+## [27] ATACseqQC_1.13.3                       
+## [28] S4Vectors_0.27.12                      
+## [29] BiocGenerics_0.35.4                    
 ## 
 ## loaded via a namespace (and not attached):
 ##   [1] backports_1.1.8               AnnotationHub_2.21.1         
@@ -753,58 +749,57 @@ To get the location of the BAM file for Tasks 1 and 2, , please copy and run the
 ##  [13] grImport2_0.2-0               limma_3.45.9                 
 ##  [15] readr_1.3.1                   askpass_1.1                  
 ##  [17] pkgdown_1.5.1                 prettyunits_1.1.1            
-##  [19] jpeg_0.1-8.1                  colorspace_1.4-1             
-##  [21] blob_1.2.1                    rappdirs_0.3.1               
-##  [23] xfun_0.15                     dplyr_1.0.0                  
-##  [25] crayon_1.3.4                  GEOquery_2.57.0              
-##  [27] survival_3.1-12               glue_1.4.1                   
-##  [29] gtable_0.3.0                  zlibbioc_1.35.0              
-##  [31] Rhdf5lib_1.11.3               HDF5Array_1.17.3             
-##  [33] scales_1.1.1                  futile.options_1.0.1         
-##  [35] DBI_1.1.0                     edgeR_3.31.4                 
-##  [37] Rcpp_1.0.5                    xtable_1.8-4                 
-##  [39] progress_1.2.2                bit_1.1-15.2                 
-##  [41] htmlwidgets_1.5.1             httr_1.4.1                   
-##  [43] ellipsis_0.3.1                pkgconfig_2.0.3              
-##  [45] XML_3.99-0.4                  dbplyr_1.4.4                 
-##  [47] locfit_1.5-9.4                tidyselect_1.1.0             
-##  [49] rlang_0.4.7                   later_1.1.0.1                
-##  [51] polynom_1.4-0                 munsell_0.5.0                
-##  [53] BiocVersion_3.12.0            tools_4.0.0                  
-##  [55] generics_0.0.2                ade4_1.7-15                  
-##  [57] evaluate_0.14                 stringr_1.4.0                
-##  [59] fastmap_1.0.1                 yaml_2.2.1                   
-##  [61] knitr_1.29                    bit64_0.9-7.1                
-##  [63] fs_1.4.2                      purrr_0.3.4                  
-##  [65] randomForest_4.6-14           AnnotationFilter_1.13.0      
-##  [67] splitstackshape_1.4.8         RBGL_1.65.0                  
-##  [69] mime_0.9                      formatR_1.7                  
-##  [71] xml2_1.3.2                    biomaRt_2.45.2               
-##  [73] compiler_4.0.0                png_0.1-7                    
-##  [75] curl_4.3                      interactiveDisplayBase_1.27.5
-##  [77] preseqR_4.0.0                 tibble_3.0.3                 
-##  [79] stringi_1.4.6                 highr_0.8                    
-##  [81] futile.logger_1.4.3           desc_1.2.0                   
-##  [83] lattice_0.20-41               ProtGenerics_1.21.0          
-##  [85] multtest_2.45.0               vctrs_0.3.2                  
-##  [87] pillar_1.4.6                  lifecycle_0.2.0              
-##  [89] rhdf5filters_1.1.2            BiocManager_1.30.10          
-##  [91] data.table_1.12.8             bitops_1.0-6                 
-##  [93] httpuv_1.5.4                  R6_2.4.1                     
-##  [95] promises_1.1.1                KernSmooth_2.23-16           
-##  [97] motifStack_1.33.6             lambda.r_1.2.4               
-##  [99] MASS_7.3-51.5                 assertthat_0.2.1             
-## [101] rhdf5_2.33.7                  openssl_1.4.2                
-## [103] rprojroot_1.3-2               GenomicScores_2.1.1          
-## [105] regioneR_1.21.1               GenomeInfoDbData_1.2.3       
-## [107] hms_0.5.3                     VennDiagram_1.6.20           
-## [109] grid_4.0.0                    tidyr_1.1.0                  
-## [111] rmarkdown_2.3                 base64enc_0.1-3              
-## [113] shiny_1.5.0</code></pre>
+##  [19] colorspace_1.4-1              blob_1.2.1                   
+##  [21] rappdirs_0.3.1                xfun_0.15                    
+##  [23] dplyr_1.0.0                   crayon_1.3.4                 
+##  [25] GEOquery_2.57.0               survival_3.1-12              
+##  [27] glue_1.4.1                    gtable_0.3.0                 
+##  [29] zlibbioc_1.35.0               Rhdf5lib_1.11.3              
+##  [31] HDF5Array_1.17.3              scales_1.1.1                 
+##  [33] futile.options_1.0.1          DBI_1.1.0                    
+##  [35] edgeR_3.31.4                  Rcpp_1.0.5                   
+##  [37] xtable_1.8-4                  progress_1.2.2               
+##  [39] bit_1.1-15.2                  htmlwidgets_1.5.1            
+##  [41] httr_1.4.1                    ellipsis_0.3.1               
+##  [43] pkgconfig_2.0.3               XML_3.99-0.4                 
+##  [45] dbplyr_1.4.4                  locfit_1.5-9.4               
+##  [47] tidyselect_1.1.0              rlang_0.4.7                  
+##  [49] later_1.1.0.1                 polynom_1.4-0                
+##  [51] munsell_0.5.0                 BiocVersion_3.12.0           
+##  [53] tools_4.0.0                   generics_0.0.2               
+##  [55] ade4_1.7-15                   evaluate_0.14                
+##  [57] stringr_1.4.0                 fastmap_1.0.1                
+##  [59] yaml_2.2.1                    knitr_1.29                   
+##  [61] bit64_0.9-7.1                 fs_1.4.2                     
+##  [63] purrr_0.3.4                   randomForest_4.6-14          
+##  [65] AnnotationFilter_1.13.0       splitstackshape_1.4.8        
+##  [67] RBGL_1.65.0                   mime_0.9                     
+##  [69] formatR_1.7                   xml2_1.3.2                   
+##  [71] biomaRt_2.45.2                compiler_4.0.0               
+##  [73] curl_4.3                      interactiveDisplayBase_1.27.5
+##  [75] preseqR_4.0.0                 tibble_3.0.3                 
+##  [77] stringi_1.4.6                 highr_0.8                    
+##  [79] futile.logger_1.4.3           desc_1.2.0                   
+##  [81] lattice_0.20-41               ProtGenerics_1.21.0          
+##  [83] multtest_2.45.0               vctrs_0.3.2                  
+##  [85] pillar_1.4.6                  lifecycle_0.2.0              
+##  [87] rhdf5filters_1.1.2            BiocManager_1.30.10          
+##  [89] data.table_1.12.8             bitops_1.0-6                 
+##  [91] httpuv_1.5.4                  R6_2.4.1                     
+##  [93] promises_1.1.1                KernSmooth_2.23-16           
+##  [95] motifStack_1.33.6             lambda.r_1.2.4               
+##  [97] MASS_7.3-51.5                 assertthat_0.2.1             
+##  [99] rhdf5_2.33.7                  openssl_1.4.2                
+## [101] rprojroot_1.3-2               GenomicScores_2.1.1          
+## [103] regioneR_1.21.1               GenomeInfoDbData_1.2.3       
+## [105] hms_0.5.3                     VennDiagram_1.6.20           
+## [107] grid_4.0.0                    tidyr_1.1.0                  
+## [109] rmarkdown_2.3                 base64enc_0.1-3              
+## [111] shiny_1.5.0</code></pre>
 </div>
-<div id="references" class="section level2">
-<h2 class="hasAnchor">
-<a href="#references" class="anchor"></a>References</h2>
+<div id="references" class="section level3">
+<h3 class="hasAnchor">
+<a href="#references" class="anchor"></a>References</h3>
 <hr>
 <div id="refs" class="references">
 <div id="ref-Pederson1986">
@@ -900,16 +895,10 @@ To get the location of the BAM file for Tasks 1 and 2, , please copy and run the
 <div class="footnotes">
 <hr>
 <ol>
-<li id="fn1"><p><a href="mailto:haibo.liu@umassmed.edu" class="email">haibo.liu@umassmed.edu</a><a href="#fnref1" class="footnote-back">↩︎</a></p></li>
-<li id="fn2"><p><a href="mailto:Jianhong.ou@duke.edu" class="email">Jianhong.ou@duke.edu</a><a href="#fnref2" class="footnote-back">↩︎</a></p></li>
-<li id="fn3"><p><a href="mailto:Rui.Li@umassmed.edu" class="email">Rui.Li@umassmed.edu</a><a href="#fnref3" class="footnote-back">↩︎</a></p></li>
-<li id="fn4"><p><a href="mailto:Kai.Hu@umassmed.edu" class="email">Kai.Hu@umassmed.edu</a><a href="#fnref4" class="footnote-back">↩︎</a></p></li>
-<li id="fn5"><p><a href="mailto:Julie.Zhu@umassmed.edu" class="email">Julie.Zhu@umassmed.edu</a><a href="#fnref5" class="footnote-back">↩︎</a></p></li>
-<li id="fn6"><p>Department of Molecular, Cell, and Cancer Biology, University of Massachusetts Medical School, 364 Plantation Street, Worcester, MA, 01605, USA.<a href="#fnref6" class="footnote-back">↩︎</a></p></li>
-<li id="fn7"><p>Regeneration NEXT, Duke University School of Medicine, Duke University, Durham, NC, 27701, USA. <a href="#fnref7" class="footnote-back">↩︎</a></p></li>
-<li id="fn8"><p>Department of Molecular, Cell, and Cancer Biology, University of Massachusetts Medical School, 364 Plantation Street, Worcester, MA, 01605, USA.<a href="#fnref8" class="footnote-back">↩︎</a></p></li>
-<li id="fn9"><p>Department of Molecular, Cell, and Cancer Biology, University of Massachusetts Medical School, 364 Plantation Street, Worcester, MA, 01605, USA.<a href="#fnref9" class="footnote-back">↩︎</a></p></li>
-<li id="fn10"><p>Corresponding author, Department of Molecular, Cell and Cancer Biology, Program in Molecular Medicine, Program in Bioinformatics and Integrative Biology, UMass Medical School, Worcester, MA, 01655, USA.<a href="#fnref10" class="footnote-back">↩︎</a></p></li>
+<li id="fn1"><p>Department of Molecular, Cell, and Cancer Biology, University of Massachusetts Medical School, 364 Plantation Street, Worcester, MA, 01605, USA. <a href="mailto:haibo.liu@umassmed.edu" class="email">haibo.liu@umassmed.edu</a><a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>Regeneration NEXT, Duke University School of Medicine, Duke University, Durham, NC, 27701, USA. <a href="mailto:Jianhong.ou@duke.edu" class="email">Jianhong.ou@duke.edu</a><a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>Department of Molecular, Cell, and Cancer Biology, University of Massachusetts Medical School, 364 Plantation Street, Worcester, MA, 01605, USA. <a href="mailto:Kai.Hu@umassmed.edu" class="email">Kai.Hu@umassmed.edu</a><a href="#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn4"><p> Corresponding author, Department of Molecular, Cell and Cancer Biology, Program in Molecular Medicine, Program in Bioinformatics and Integrative Biology, UMass Medical School, Worcester, MA, 01655, USA. <a href="mailto:Julie.Zhu@umassmed.edu" class="email">Julie.Zhu@umassmed.edu</a><a href="#fnref4" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
   </div>
@@ -925,7 +914,7 @@ To get the location of the BAM file for Tasks 1 and 2, , please copy and run the
 
 
       <footer><div class="copyright">
-  <p>Developed by Haibo Liu, Jianhong Ou, Rui Li, Kai Hu, Liuhua Zhu.</p>
+  <p>Developed by Haibo Liu, Jianhong Ou, Kai Hu, Liuhua Zhu.</p>
 </div>
 
 <div class="pkgdown">
