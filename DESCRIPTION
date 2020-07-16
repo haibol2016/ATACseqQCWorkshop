@@ -10,10 +10,6 @@ Authors@R:
             family = "Ou",
             role = "aut",
             email = "jianhong.ou@duke.edu"),
-    person(given = "Rui",
-            family = "Li",
-            role = "aut",
-            email = "Rui.Li@umassmed.edu"),
     person(given = "Kai",
             family = "Hu",
             role = "aut",
@@ -50,7 +46,7 @@ Suggests: knitr, rmarkdown, pkgdown, BiocGenerics, S4Vectors, BSgenome, Biostrin
     rtracklayer, stats, motifStack, preseqR, utils, KernSmooth, edgeR, BiocStyle,
     BSgenome.Hsapiens.UCSC.hg38,TxDb.Hsapiens.UCSC.hg38.knownGene, 
     BSgenome.Hsapiens.UCSC.hg19, TxDb.Hsapiens.UCSC.hg19.knownGene, 
-    MotifDb,trackViewer,SRAdb
+    MotifDb, trackViewer, SRAdb, png, jpeg
 URL: https://haibol2016.github.io/ATACseqQCWorkshop/
 BugReports: https://github.com/haibol2016/ATACseqQCWorkshop/issues/new/choose
 VignetteBuilder: knitr
@@ -59,7 +55,6 @@ NeedsCompilation: no
 Packaged: 2020-07-15 15:34:29 UTC; Haibo
 Author: Haibo Liu [aut, cre],
     Jianhong Ou [aut],
-    Rui Li [aut],
     Kai Hu [aut],
     Liuhua Zhu [aut]
 Maintainer: Haibo Liu <haibo.liu@umassmed.edu>
