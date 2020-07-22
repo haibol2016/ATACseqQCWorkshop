@@ -14,7 +14,7 @@ Authors@R:
             family = "Hu",
             role = c("aut"),
             email = "Kai.Hu@umassmed.edu"),
-    person(given = "Liuhua",
+    person(given = "Lihua",
             family = "Zhu",
             role = c("aut"),
             email = "Julie.Zhu@umassmed.edu"))
