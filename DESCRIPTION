@@ -8,15 +8,15 @@ Authors@R:
            email = "haibo.liu@umassmed.edu"),
     person(given = "Jianhong",
             family = "Ou",
-            role = "aut",
+            role = c("aut"),
             email = "jianhong.ou@duke.edu"),
     person(given = "Kai",
             family = "Hu",
-            role = "aut",
+            role = c("aut"),
             email = "Kai.Hu@umassmed.edu"),
-    person(given = "Liuhua",
+    person(given = "Lihua",
             family = "Zhu",
-            role = "aut",
+            role = c("aut"),
             email = "Julie.Zhu@umassmed.edu"))
 Description: ATAC-seq, an assay for Transposase-Accessible Chromatin
     using sequencing, is a rapid and sensitive method for chromatin
@@ -51,10 +51,3 @@ URL: https://haibol2016.github.io/ATACseqQCWorkshop/
 BugReports: https://github.com/haibol2016/ATACseqQCWorkshop/issues/new/choose
 VignetteBuilder: knitr
 DockerImage: nemat1976/atacseqqcworkshop_2020:latest
-NeedsCompilation: no
-Packaged: 2020-07-15 15:34:29 UTC; Haibo
-Author: Haibo Liu [aut, cre],
-    Jianhong Ou [aut],
-    Kai Hu [aut],
-    Liuhua Zhu [aut]
-Maintainer: Haibo Liu <haibo.liu@umassmed.edu>
