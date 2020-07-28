@@ -55,6 +55,8 @@ mkdir -p ${out}
 fasta=/home/haibol/haibol_work/haibo_genome/Homo_sapiens/alt.contig.filtered.hg38.fa
 bwa mem -M -t 8  $fasta  ${R1[$i]} ${R2[$i]} | \
          samtools view -bu -h  -@ 8 - | samtools sort  -l 5 -m 8G -o $out/${names[$i]}.sort.bam  -O BAM -@ 8  - 
+
+samtools  index $out/${names[$i]}.sort.bam
        
 
 5. filter alignments using samtools, picard tools and custom scripts
@@ -94,8 +96,7 @@ samtools index $out/${names[$i]}.chr1.21.MT.sorted.bam  $out/${names[$i]}.chr1.2
 ## filtering BAM files to remove mitochondrial reads and other alignments of no interest
 samtools view  -h -O SAM  ${bams[${i}]}   ${chromosomes[@]} | awk  'BEGIN{FS=OFS="\t"} \
     function abs(v) {return v < 0 ? -v : v}; /^@/ || ($7 == "="  \
-    && ($2 == 81 || $2 == 161|| $2 == 97 || $2 == 145 || $2 ==99 || \
-    $2 == 147 || $2 == 83 || $2 ==163) && abs($9) <= 2000 && abs($9) >= 38 && $5 >= 20 ) {print}' | \
+    && ($2 ==99 || $2 == 147 || $2 == 83 || $2 ==163) && abs($9) <= 2000 && abs($9) >= 38 && $5 >= 20 ) {print}' | \
     samtools view  -bu -h  -@ 8 -  | \
     samtools sort  -l 5 -m 8G -o $out/${names[$i]}.MT.rmvd.sorted.bam  -O BAM -@ 8  -
 
